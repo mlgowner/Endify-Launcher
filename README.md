@@ -1,2 +1,0 @@
-# Endify-Launcher
-Endify-Launcher
