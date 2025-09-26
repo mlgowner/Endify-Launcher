@@ -1,5 +1,14 @@
 const { app, BrowserWindow } = require('electron');
-const { exec } = require('child_process'); // Встроенный модуль
+const path = require('path');
+
 app.whenReady().then(() => {
-  new BrowserWindow({ width: 800, height: 600 }).loadFile('public/index.html');
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+  win.loadFile('public/index.html');
 });
