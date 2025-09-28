@@ -1,9 +1,12 @@
-body {
+html, body {
     margin: 0;
+    height: 100vh;
     font-family: 'Roboto', sans-serif;
     background-color: #1e1e2e;
     color: #ecf0f1;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -31,6 +34,18 @@ nav {
     color: #7b2cbf;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-right: auto;
+}
+
+.nav-center {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .nav-links {
@@ -85,9 +100,9 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 80px 20px;
+    padding: 40px 20px;
     background: linear-gradient(180deg, rgba(123, 44, 191, 0.2), #1e1e2e);
-    min-height: 100vh;
+    flex: 1;
 }
 
 h1 {
@@ -124,17 +139,8 @@ p {
     box-shadow: 0 0 20px rgba(123, 44, 191, 0.6);
 }
 
-.hero-img {
-    max-width: 80%;
-    height: auto;
-    margin-top: 30px;
-    border-radius: 10px;
-    border: 2px solid #7b2cbf;
-    box-shadow: 0 0 15px rgba(123, 44, 191, 0.3);
-}
-
 .features-preview {
-    padding: 80px 20px;
+    padding: 40px 20px;
     text-align: center;
 }
 
@@ -189,8 +195,12 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .nav-links {
+    .nav-center, .nav-right {
         display: none;
+    }
+
+    .nav-center.active, .nav-right.active {
+        display: flex;
         flex-direction: column;
         position: absolute;
         top: 70px;
@@ -199,10 +209,6 @@ footer {
         background-color: #121212;
         padding: 20px 0;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .nav-links.active {
-        display: flex;
     }
 
     .nav-links li a,
@@ -224,7 +230,7 @@ footer {
     }
 
     .hero {
-        padding: 60px 20px;
+        padding: 30px 20px;
     }
 
     .btn {
