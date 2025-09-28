@@ -1,7 +1,8 @@
 html, body {
     margin: 0;
     height: 100vh;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
     background-color: #1e1e2e;
     color: #ecf0f1;
     overflow: hidden;
@@ -25,9 +26,9 @@ nav {
 }
 
 .logo {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 500;
     color: #7b2cbf;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -113,18 +114,18 @@ nav {
 }
 
 h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 52px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 0 20px;
     color: #ecf0f1;
     text-shadow: 0 0 10px rgba(123, 44, 191, 0.7);
 }
 
 h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 0 30px;
     color: #ecf0f1;
     line-height: 1.6;
@@ -159,6 +160,7 @@ h2 {
     gap: 25px;
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: -20px;
 }
 
 .feature-item {
@@ -181,15 +183,16 @@ h2 {
 }
 
 .feature-item h3 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 24px;
+    font-weight: 500;
     margin: 10px 0;
     color: #ecf0f1;
 }
 
 footer {
     background-color: #121212;
-    padding: 25px;
+    padding: 20px;
     color: #ecf0f1;
     border-top: 2px solid #7b2cbf;
 }
