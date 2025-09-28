@@ -3,15 +3,23 @@ html, body {
     height: 100vh;
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
-    background-color: #000000;
+    background: linear-gradient(45deg, #000000, #1A2A6C, #000000);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
     color: #FFFFFF;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
 header {
-    background-color: #1E3A8A;
+    background-color: #1A2A6C;
     padding: 20px 40px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -71,7 +79,7 @@ nav {
 
 .nav-links li a:hover,
 .nav-links li a.active {
-    color: #1E3A8A;
+    color: #FFFFFF;
     transform: scale(1.1);
 }
 
@@ -87,7 +95,7 @@ nav {
 }
 
 .nav-right i:hover {
-    color: #1E3A8A;
+    color: #FFFFFF;
     transform: scale(1.2);
 }
 
@@ -100,7 +108,7 @@ nav {
 }
 
 .burger:hover {
-    color: #1E3A8A;
+    color: #FFFFFF;
 }
 
 .hero {
@@ -109,8 +117,7 @@ nav {
     align-items: center;
     text-align: center;
     padding: 40px 20px;
-    background: linear-gradient(180deg, rgba(30, 58, 138, 0.2), #000000);
-    flex: 1;
+    background: linear-gradient(180deg, rgba(26, 42, 108, 0.2), #000000);
 }
 
 h1 {
@@ -119,7 +126,7 @@ h1 {
     font-weight: 500;
     margin: 0 0 20px;
     color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(30, 58, 138, 0.7);
+    text-shadow: 0 0 10px rgba(26, 42, 108, 0.7);
 }
 
 h2 {
@@ -134,14 +141,9 @@ h2 {
 .features-preview {
     padding: 40px 20px;
     text-align: center;
-    position: relative;
 }
 
 .feature-grid {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translateX(-50%);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
@@ -150,7 +152,7 @@ h2 {
 }
 
 .feature-item {
-    background-color: #1E3A8A;
+    background-color: #1A2A6C;
     padding: 25px;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -159,7 +161,7 @@ h2 {
 
 .feature-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(30, 58, 138, 0.4);
+    box-shadow: 0 0 20px rgba(26, 42, 108, 0.4);
 }
 
 .feature-icon {
@@ -177,27 +179,25 @@ h2 {
 }
 
 footer {
-    background-color: #1E3A8A;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1A2A6C;
     padding: 20px;
     color: #FFFFFF;
     border-top: 2px solid #FFFFFF;
+    z-index: 100;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.footer-text {
-    padding-left: 40px;
-    margin: 0;
-}
-
 .social-icons {
-    padding-right: 40px;
     display: flex;
     gap: 15px;
 }
@@ -225,7 +225,7 @@ footer {
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: #1E3A8A;
+        background-color: #1A2A6C;
         padding: 20px 0;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
@@ -264,14 +264,12 @@ footer {
 
     .footer-content {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 15px;
     }
 
     .social-icons {
-        padding-right: 0;
-        justify-content: flex-start;
-        padding-left: 40px;
+        padding: 0;
     }
 }
 
@@ -294,13 +292,5 @@ footer {
 
     .feature-icon {
         font-size: 50px;
-    }
-
-    .footer-text {
-        padding-left: 20px;
-    }
-
-    .social-icons {
-        padding-left: 20px;
     }
 }
