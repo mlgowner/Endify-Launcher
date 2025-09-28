@@ -3,15 +3,15 @@ html, body {
     height: 100vh;
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
-    background-color: #1e1e2e;
-    color: #ecf0f1;
+    background-color: #000000;
+    color: #FFFFFF;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
 header {
-    background-color: #121212;
+    background-color: #1E3A8A;
     padding: 20px 40px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -28,8 +28,8 @@ nav {
 .logo {
     font-family: 'Rubik', sans-serif;
     font-size: 28px;
-    font-weight: 500;
-    color: #7b2cbf;
+    font-weight: 600;
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-left: 0;
@@ -61,7 +61,7 @@ nav {
 }
 
 .nav-links li a {
-    color: #ecf0f1;
+    color: #FFFFFF;
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -71,23 +71,23 @@ nav {
 
 .nav-links li a:hover,
 .nav-links li a.active {
-    color: #7b2cbf;
+    color: #1E3A8A;
     transform: scale(1.1);
 }
 
 .nav-right a {
-    color: #ecf0f1;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
 .nav-right i {
     font-size: 24px;
-    color: #ecf0f1;
+    color: #FFFFFF;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-right i:hover {
-    color: #7b2cbf;
+    color: #1E3A8A;
     transform: scale(1.2);
 }
 
@@ -95,12 +95,12 @@ nav {
     display: none;
     font-size: 28px;
     cursor: pointer;
-    color: #ecf0f1;
+    color: #FFFFFF;
     transition: color 0.3s ease;
 }
 
 .burger:hover {
-    color: #7b2cbf;
+    color: #1E3A8A;
 }
 
 .hero {
@@ -109,7 +109,7 @@ nav {
     align-items: center;
     text-align: center;
     padding: 40px 20px;
-    background: linear-gradient(180deg, rgba(123, 44, 191, 0.2), #1e1e2e);
+    background: linear-gradient(180deg, rgba(30, 58, 138, 0.2), #000000);
     flex: 1;
 }
 
@@ -118,10 +118,8 @@ h1 {
     font-size: 52px;
     font-weight: 500;
     margin: 0 0 20px;
-    color: #ecf0f1;
-    text-shadow: 0 0 10px rgba(123, 44, 191, 0.7);
-    text-transform: uppercase;
-    font-variant: small-caps;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px rgba(30, 58, 138, 0.7);
 }
 
 h2 {
@@ -129,35 +127,21 @@ h2 {
     font-size: 36px;
     font-weight: 500;
     margin: 0 0 30px;
-    color: #ecf0f1;
+    color: #FFFFFF;
     line-height: 1.6;
-}
-
-.btn {
-    background-color: #2196f3;
-    color: #fff;
-    padding: 14px 28px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid #7b2cbf;
-}
-
-.btn:hover {
-    background-color: #7b2cbf;
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(123, 44, 191, 0.6);
 }
 
 .features-preview {
     padding: 40px 20px;
     text-align: center;
-    margin-top: -40px;
+    position: relative;
 }
 
 .feature-grid {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
@@ -166,21 +150,21 @@ h2 {
 }
 
 .feature-item {
-    background-color: #2c2c2c;
+    background-color: #1E3A8A;
     padding: 25px;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #7b2cbf;
+    border: 1px solid #FFFFFF;
 }
 
 .feature-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(123, 44, 191, 0.4);
+    box-shadow: 0 0 20px rgba(30, 58, 138, 0.4);
 }
 
 .feature-icon {
     font-size: 60px;
-    color: #7b2cbf;
+    color: #FFFFFF;
     margin-bottom: 15px;
 }
 
@@ -189,14 +173,14 @@ h2 {
     font-size: 24px;
     font-weight: 500;
     margin: 10px 0;
-    color: #ecf0f1;
+    color: #FFFFFF;
 }
 
 footer {
-    background-color: #121212;
+    background-color: #1E3A8A;
     padding: 20px;
-    color: #ecf0f1;
-    border-top: 2px solid #7b2cbf;
+    color: #FFFFFF;
+    border-top: 2px solid #FFFFFF;
 }
 
 .footer-content {
@@ -219,13 +203,13 @@ footer {
 }
 
 .social-icons a {
-    color: #ecf0f1;
+    color: #FFFFFF;
     font-size: 24px;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #7b2cbf;
+    color: #FFFFFF;
     transform: scale(1.2);
 }
 
@@ -241,7 +225,7 @@ footer {
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: #121212;
+        background-color: #1E3A8A;
         padding: 20px 0;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
@@ -276,11 +260,6 @@ footer {
 
     .hero {
         padding: 30px 20px;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 16px;
     }
 
     .footer-content {
