@@ -168,6 +168,7 @@ h2 {
 .features-preview {
     padding: 40px 20px;
     text-align: center;
+    background: linear-gradient(45deg, #000000, #2A3263, #000000);
 }
 
 .carousel-container {
@@ -191,7 +192,7 @@ h2 {
     background-color: #2A3263;
     padding: 25px;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
     border: 1px solid #7C7E8C;
     position: absolute;
     width: 280px;
@@ -207,19 +208,13 @@ h2 {
 }
 
 .feature-item[data-position="left"] {
-    transform: rotateY(60deg) translateZ(0) translateX(-200px) translateY(50px);
+    transform: translateX(-200px) translateY(50px) rotateY(30deg);
     z-index: 2;
 }
 
 .feature-item[data-position="right"] {
-    transform: rotateY(-60deg) translateZ(0) translateX(200px) translateY(50px);
+    transform: translateX(200px) translateY(50px) rotateY(-30deg);
     z-index: 2;
-}
-
-.feature-item[data-position="back"] {
-    transform: translateZ(-200px) scale(0.8);
-    opacity: 0.5;
-    z-index: 1;
 }
 
 .feature-item:hover {
