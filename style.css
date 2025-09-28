@@ -44,8 +44,9 @@ nav {
 
 .nav-right {
     display: flex;
-    justify-content: flex-end;
+    gap: 20px;
     margin-left: auto;
+    align-items: center;
 }
 
 .nav-links {
@@ -72,13 +73,18 @@ nav {
     transform: scale(1.1);
 }
 
-.nav-links li i {
+.nav-right a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.nav-right i {
     font-size: 24px;
     color: #ecf0f1;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.nav-links li i:hover {
+.nav-right i:hover {
     color: #7b2cbf;
     transform: scale(1.2);
 }
@@ -212,12 +218,18 @@ footer {
     }
 
     .nav-links li a,
-    .nav-links li i {
+    .nav-right a,
+    .nav-right i {
         padding: 10px 20px;
         font-size: 18px;
     }
 
-    .nav-links li i {
+    .nav-right {
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav-right i {
         margin: 10px auto;
     }
 
