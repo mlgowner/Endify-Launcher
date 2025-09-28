@@ -190,12 +190,12 @@ h2 {
 
 .feature-item {
     background-color: #2A3263;
-    padding: 25px;
+    padding: 20px;
     border-radius: 10px;
     transition: transform 0.5s ease, opacity 0.5s ease;
     border: 1px solid #7C7E8C;
     position: absolute;
-    width: 280px;
+    width: 240px;
     text-align: center;
     opacity: 0.7;
     transform-origin: center center;
@@ -223,14 +223,14 @@ h2 {
 }
 
 .feature-icon {
-    font-size: 60px;
+    font-size: 50px;
     color: #E7EBE7;
     margin-bottom: 15px;
 }
 
 .feature-item h3 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     margin: 10px 0;
     color: #E7EBE7;
@@ -238,14 +238,14 @@ h2 {
 
 .feature-item p {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #E7EBE7;
 }
 
 footer {
     background: linear-gradient(45deg, #000000, #2A3263, #000000);
-    padding: 20px;
+    padding: 15px;
     color: #E7EBE7;
     border-top: 2px solid #7C7E8C;
     z-index: 100;
@@ -269,12 +269,12 @@ footer {
 }
 
 .social-icons a {
-    --width: 60px;
+    --width: 55px;
     box-sizing: border-box;
     width: var(--width);
     height: var(--width);
     color: #E7EBE7;
-    font-size: 30px;
+    font-size: 28px;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(2px);
@@ -289,7 +289,7 @@ footer {
     justify-content: center;
     align-items: center;
     position: relative;
-    transition: transform 200ms;
+    transition: transform 400ms;
 }
 
 .social-icons a::before {
@@ -305,7 +305,7 @@ footer {
 }
 
 .social-icons a:hover {
-    transform: translateY(-20px);
+    transform: translateY(-10px);
     z-index: 1;
 }
 
@@ -376,7 +376,7 @@ footer {
     }
 
     .feature-item {
-        width: 240px;
+        width: 200px;
     }
 
     .footer-content {
@@ -408,6 +408,6 @@ footer {
     }
 
     .feature-icon {
-        font-size: 50px;
+        font-size: 40px;
     }
 }
