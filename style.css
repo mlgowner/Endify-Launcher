@@ -12,8 +12,6 @@ html, body {
 header {
     background-color: #121212;
     padding: 20px 0;
-    position: sticky;
-    top: 0;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
@@ -24,7 +22,7 @@ nav {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
 }
 
 .logo {
@@ -34,7 +32,7 @@ nav {
     color: #7b2cbf;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-right: auto;
+    margin-left: 0;
 }
 
 .nav-center {
@@ -46,6 +44,7 @@ nav {
     display: flex;
     gap: 20px;
     margin-left: auto;
+    padding-right: 0;
     align-items: center;
 }
 
@@ -198,6 +197,24 @@ footer {
     padding: 25px;
     color: #ecf0f1;
     border-top: 2px solid #7b2cbf;
+}
+
+.social-icons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #ecf0f1;
+    font-size: 24px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #7b2cbf;
+    transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
