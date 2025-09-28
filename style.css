@@ -3,7 +3,7 @@ html, body {
     height: 100vh;
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
-    background: linear-gradient(45deg, #000000, #151F53, #000000);
+    background: linear-gradient(45deg, #000000, #212852, #000000);
     background-size: 200% 200%;
     animation: gradientShift 10s ease infinite;
     color: #FFFFFF;
@@ -19,7 +19,7 @@ html, body {
 }
 
 header {
-    background-color: #151F53;
+    background-color: #212852;
     padding: 20px 40px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -51,21 +51,6 @@ nav {
     justify-content: center;
 }
 
-.nav-center::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #FFFFFF;
-    transition: width 0.3s ease;
-}
-
-.nav-center:hover::after {
-    width: 100%;
-}
-
 .nav-right {
     display: flex;
     gap: 20px;
@@ -77,7 +62,7 @@ nav {
 
 @keyframes colorChange {
     0% { color: #FFFFFF; }
-    50% { color: #151F53; }
+    50% { color: #212852; }
     100% { color: #FFFFFF; }
 }
 
@@ -96,13 +81,28 @@ nav {
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
+    position: relative;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.nav-links li a:hover,
-.nav-links li a.active {
-    color: #FFFFFF;
+.nav-links li a:hover {
+    color: #212852;
     transform: scale(1.1);
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #FFFFFF;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
 }
 
 .nav-right a {
@@ -117,7 +117,7 @@ nav {
 }
 
 .nav-right i:hover {
-    color: #FFFFFF;
+    color: #212852;
     transform: scale(1.2);
 }
 
@@ -130,7 +130,7 @@ nav {
 }
 
 .burger:hover {
-    color: #FFFFFF;
+    color: #212852;
 }
 
 .hero {
@@ -147,7 +147,7 @@ h1 {
     font-weight: 500;
     margin: 100px 0 30px;
     color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(21, 31, 83, 0.7);
+    text-shadow: 0 0 10px rgba(33, 40, 82, 0.7);
 }
 
 h2 {
@@ -174,7 +174,7 @@ h2 {
 }
 
 .feature-item {
-    background-color: #151F53;
+    background-color: #212852;
     padding: 25px;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -183,7 +183,7 @@ h2 {
 
 .feature-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(21, 31, 83, 0.4);
+    box-shadow: 0 0 20px rgba(33, 40, 82, 0.4);
 }
 
 .feature-icon {
@@ -204,7 +204,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #151F53;
+    background-color: #212852;
     padding: 20px;
     color: #FFFFFF;
     border-top: 2px solid #FFFFFF;
@@ -247,7 +247,7 @@ footer {
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: #151F53;
+        background-color: #212852;
         padding: 20px 0;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
