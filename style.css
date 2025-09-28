@@ -1,0 +1,251 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e2e;
+    color: #ecf0f1;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #121212;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #7b2cbf;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: #7b2cbf;
+    transform: scale(1.1);
+}
+
+.burger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #ecf0f1;
+    transition: color 0.3s ease;
+}
+
+.burger:hover {
+    color: #7b2cbf;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, rgba(123, 44, 191, 0.2), #1e1e2e);
+    min-height: 100vh;
+}
+
+.loader {
+    border: 10px solid #ecf0f1;
+    border-top: 10px solid #7b2cbf;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.2s linear infinite;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    color: #ecf0f1;
+    text-shadow: 0 0 10px rgba(123, 44, 191, 0.7);
+}
+
+p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 0 30px;
+    line-height: 1.6;
+}
+
+.btn {
+    background-color: #2196f3;
+    color: #fff;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #7b2cbf;
+}
+
+.btn:hover {
+    background-color: #7b2cbf;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.6);
+}
+
+.hero-img {
+    max-width: 80%;
+    height: auto;
+    margin-top: 30px;
+    border-radius: 10px;
+    border: 2px solid #7b2cbf;
+    box-shadow: 0 0 15px rgba(123, 44, 191, 0.3);
+}
+
+.features-preview {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #ecf0f1;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background-color: #2c2c2c;
+    padding: 25px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #7b2cbf;
+}
+
+.feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.4);
+}
+
+.feature-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    margin: 10px 0;
+    color: #ecf0f1;
+}
+
+footer {
+    background-color: #121212;
+    text-align: center;
+    padding: 25px;
+    color: #ecf0f1;
+    border-top: 2px solid #7b2cbf;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: #121212;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li a {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .feature-item {
+        padding: 15px;
+    }
+}
