@@ -13,17 +13,17 @@ function updatePositions() {
             item.dataset.position = 'center';
             item.style.transform = `translate(${centerX - item.offsetWidth / 2}px, ${centerY - item.offsetHeight / 2}px) translateZ(150px) scale(1.2)`;
             item.style.opacity = 1;
-            item.style.zIndex = 3;
+            item.style.zIndex = 13;
         } else if (pos === 1) {
             item.dataset.position = 'right';
             item.style.transform = `translate(${centerX - item.offsetWidth / 2 + 200}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(-30deg)`;
             item.style.opacity = 0.7;
-            item.style.zIndex = 2;
+            item.style.zIndex = 11;
         } else if (pos === 2) {
             item.dataset.position = 'left';
             item.style.transform = `translate(${centerX - item.offsetWidth / 2 - 200}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(30deg)`;
             item.style.opacity = 0.7;
-            item.style.zIndex = 2;
+            item.style.zIndex = 11;
         } else {
             item.style.transform = 'none';
             item.style.opacity = 0;
