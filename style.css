@@ -39,6 +39,7 @@ nav {
     gap: 25px;
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 .nav-links li a {
@@ -46,6 +47,7 @@ nav {
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
+    text-transform: uppercase;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -53,6 +55,17 @@ nav {
 .nav-links li a.active {
     color: #7b2cbf;
     transform: scale(1.1);
+}
+
+.nav-links li i {
+    font-size: 24px;
+    color: #ecf0f1;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links li i:hover {
+    color: #7b2cbf;
+    transform: scale(1.2);
 }
 
 .burger {
@@ -75,22 +88,6 @@ nav {
     padding: 80px 20px;
     background: linear-gradient(180deg, rgba(123, 44, 191, 0.2), #1e1e2e);
     min-height: 100vh;
-}
-
-.loader {
-    border: 10px solid #ecf0f1;
-    border-top: 10px solid #7b2cbf;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1.2s linear infinite;
-    margin-bottom: 30px;
-    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 h1 {
@@ -170,10 +167,9 @@ h2 {
     box-shadow: 0 0 20px rgba(123, 44, 191, 0.4);
 }
 
-.feature-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+.feature-icon {
+    font-size: 60px;
+    color: #7b2cbf;
     margin-bottom: 15px;
 }
 
@@ -209,9 +205,14 @@ footer {
         display: flex;
     }
 
-    .nav-links li a {
+    .nav-links li a,
+    .nav-links li i {
         padding: 10px 20px;
         font-size: 18px;
+    }
+
+    .nav-links li i {
+        margin: 10px auto;
     }
 
     .burger {
@@ -247,5 +248,9 @@ footer {
 
     .feature-item {
         padding: 15px;
+    }
+
+    .feature-icon {
+        font-size: 50px;
     }
 }
