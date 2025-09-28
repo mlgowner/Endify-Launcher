@@ -3,10 +3,10 @@ html, body {
     height: 100vh;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    background: linear-gradient(45deg, #000000, #212852, #000000);
+    background: linear-gradient(45deg, #000000, #2A3263, #000000);
     background-size: 200% 200%;
     animation: gradientShift 10s ease infinite;
-    color: #FFFFFF;
+    color: #E7EBE7;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ html, body {
 }
 
 header {
-    background-color: #212852;
+    background-color: #2A3263;
     padding: 20px 40px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -37,7 +37,7 @@ nav {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #E7EBE7;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-left: 0;
@@ -61,9 +61,9 @@ nav {
 }
 
 @keyframes colorChange {
-    0% { color: #FFFFFF; }
-    50% { color: #212852; }
-    100% { color: #FFFFFF; }
+    0% { color: #E7EBE7; }
+    50% { color: #2A3263; }
+    100% { color: #E7EBE7; }
 }
 
 .nav-links {
@@ -76,7 +76,7 @@ nav {
 }
 
 .nav-links li a {
-    color: #FFFFFF;
+    color: #E7EBE7;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -87,7 +87,7 @@ nav {
 }
 
 .nav-links li a:hover {
-    color: #FFD700;
+    color: #635E88;
     transform: scale(1.1);
 }
 
@@ -98,7 +98,7 @@ nav {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: #FFD700;
+    background-color: #635E88;
     transition: width 0.3s ease;
 }
 
@@ -107,18 +107,18 @@ nav {
 }
 
 .nav-right a {
-    color: #FFFFFF;
+    color: #E7EBE7;
     text-decoration: none;
 }
 
 .nav-right i {
     font-size: 24px;
-    color: #FFFFFF;
+    color: #E7EBE7;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-right i:hover {
-    color: #FFD700;
+    color: #635E88;
     transform: scale(1.2);
 }
 
@@ -126,12 +126,12 @@ nav {
     display: none;
     font-size: 28px;
     cursor: pointer;
-    color: #FFFFFF;
+    color: #E7EBE7;
     transition: color 0.3s ease;
 }
 
 .burger:hover {
-    color: #FFD700;
+    color: #635E88;
 }
 
 .hero {
@@ -147,8 +147,8 @@ h1 {
     font-size: 52px;
     font-weight: 600;
     margin: 100px 0 30px;
-    color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(33, 40, 82, 0.7);
+    color: #E7EBE7;
+    text-shadow: 0 0 10px rgba(42, 50, 99, 0.7);
 }
 
 h2 {
@@ -156,7 +156,7 @@ h2 {
     font-size: 36px;
     font-weight: 600;
     margin: 0 0 30px;
-    color: #FFFFFF;
+    color: #E7EBE7;
     line-height: 1.6;
 }
 
@@ -175,21 +175,21 @@ h2 {
 }
 
 .feature-item {
-    background-color: #212852;
+    background-color: #2A3263;
     padding: 25px;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #7C7E8C;
 }
 
 .feature-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(33, 40, 82, 0.4);
+    box-shadow: 0 0 20px rgba(42, 50, 99, 0.4);
 }
 
 .feature-icon {
     font-size: 60px;
-    color: #FFFFFF;
+    color: #E7EBE7;
     margin-bottom: 15px;
 }
 
@@ -198,24 +198,24 @@ h2 {
     font-size: 24px;
     font-weight: 600;
     margin: 10px 0;
-    color: #FFFFFF;
+    color: #E7EBE7;
 }
 
 .feature-item p {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #FFFFFF;
+    color: #E7EBE7;
 }
 
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #212852;
+    background-color: #2A3263;
     padding: 20px;
-    color: #FFFFFF;
-    border-top: 2px solid #FFFFFF;
+    color: #E7EBE7;
+    border-top: 2px solid #7C7E8C;
     z-index: 100;
     font-family: 'Open Sans', sans-serif;
 }
@@ -234,13 +234,13 @@ footer {
 }
 
 .social-icons a {
-    color: #FFFFFF;
+    color: #E7EBE7;
     font-size: 24px;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #FFD700;
+    color: #635E88;
     transform: scale(1.2);
 }
 
@@ -256,7 +256,7 @@ footer {
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: #212852;
+        background-color: #2A3263;
         padding: 20px 0;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
