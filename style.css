@@ -144,6 +144,7 @@ nav {
     align-items: center;
     text-align: center;
     padding: 40px 20px;
+    background: linear-gradient(45deg, #000000, #2A3263, #000000);
 }
 
 h1 {
@@ -183,7 +184,7 @@ h2 {
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1s ease;
+    transform-origin: center center;
 }
 
 .feature-item {
@@ -196,26 +197,27 @@ h2 {
     width: 280px;
     text-align: center;
     opacity: 0.7;
+    transform-origin: center center;
 }
 
 .feature-item[data-position="center"] {
-    transform: translateZ(100px) scale(1.2);
+    transform: translateZ(150px) scale(1.2);
     opacity: 1;
     z-index: 3;
 }
 
 .feature-item[data-position="left"] {
-    transform: rotateY(30deg) translateZ(50px) translateX(-300px);
+    transform: rotateY(60deg) translateZ(0) translateX(-200px) translateY(50px);
     z-index: 2;
 }
 
 .feature-item[data-position="right"] {
-    transform: rotateY(-30deg) translateZ(50px) translateX(300px);
+    transform: rotateY(-60deg) translateZ(0) translateX(200px) translateY(50px);
     z-index: 2;
 }
 
 .feature-item[data-position="back"] {
-    transform: translateZ(-100px) scale(0.8);
+    transform: translateZ(-200px) scale(0.8);
     opacity: 0.5;
     z-index: 1;
 }
@@ -247,15 +249,15 @@ h2 {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #2A3263;
+    background: linear-gradient(45deg, #000000, #2A3263, #000000);
     padding: 20px;
     color: #E7EBE7;
     border-top: 2px solid #7C7E8C;
     z-index: 100;
     font-family: 'Open Sans', sans-serif;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-content {
