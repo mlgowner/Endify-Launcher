@@ -64,7 +64,7 @@ nav {
     color: #ecf0f1;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     transition: color 0.3s ease, transform 0.3s ease;
 }
@@ -120,6 +120,8 @@ h1 {
     margin: 0 0 20px;
     color: #ecf0f1;
     text-shadow: 0 0 10px rgba(123, 44, 191, 0.7);
+    text-transform: uppercase;
+    font-variant: small-caps;
 }
 
 h2 {
@@ -152,6 +154,7 @@ h2 {
 .features-preview {
     padding: 40px 20px;
     text-align: center;
+    margin-top: -40px;
 }
 
 .feature-grid {
@@ -160,7 +163,6 @@ h2 {
     gap: 25px;
     max-width: 1200px;
     margin: 0 auto;
-    margin-top: -20px;
 }
 
 .feature-item {
