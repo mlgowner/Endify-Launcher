@@ -1,68 +1,327 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endify-Launcher</title>
-    <link rel="icon" href="images/icon.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Endify-Launcher</div>
-            <div class="nav-center">
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">Главная</a></li>
-                    <li><a href="download.html">Скачать</a></li>
-                    <li><a href="news.html">Новости</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <a href="account.html"><i class="fas fa-user"></i></a>
-                <a href="community.html"><i class="fas fa-comments"></i></a>
-            </div>
-            <div class="burger">☰</div>
-        </nav>
-    </header>
-    <section class="hero">
-        <h1>ENDIFY-LAUNCHER</h1>
-        <h2>Твой портал в темный мир Minecraft</h2>
-    </section>
-    <section class="features-preview">
-        <div class="feature-grid">
-            <div class="feature-item">
-                <i class="fas fa-puzzle-piece feature-icon"></i>
-                <h3>Модпаки</h3>
-                <p>Устанавливай и обновляй моды в один клик.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-paint-brush feature-icon"></i>
-                <h3>Кастомизация</h3>
-                <p>Создай уникальный стиль с нашими скинами и плащами.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-tachometer-alt feature-icon"></i>
-                <h3>Максимальная производительность</h3>
-                <p>Играй плавно даже с сотней модов.</p>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="footer-content">
-            <div class="social-icons">
-                <a href="https://x.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
-                <a href="https://vk.com" target="_blank"><i class="fab fa-vk"></i></a>
-                <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-    </footer>
-    <script src="script.js"></script>
-</body>
-</html>
+html, body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    background: linear-gradient(45deg, #000000, #212852, #000000);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+    color: #FFFFFF;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+header {
+    background-color: #212852;
+    padding: 20px 40px;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 0;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    padding-right: 0;
+    align-items: center;
+    animation: colorChange 5s infinite;
+}
+
+@keyframes colorChange {
+    0% { color: #FFFFFF; }
+    50% { color: #212852; }
+    100% { color: #FFFFFF; }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #FFD700;
+    transform: scale(1.1);
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #FFD700;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+.nav-right a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.nav-right i {
+    font-size: 24px;
+    color: #FFFFFF;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-right i:hover {
+    color: #FFD700;
+    transform: scale(1.2);
+}
+
+.burger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.burger:hover {
+    color: #FFD700;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    margin: 100px 0 30px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px rgba(33, 40, 82, 0.7);
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 0 30px;
+    color: #FFFFFF;
+    line-height: 1.6;
+}
+
+.features-preview {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: -50px;
+}
+
+.feature-item {
+    background-color: #212852;
+    padding: 25px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #FFFFFF;
+}
+
+.feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 20px rgba(33, 40, 82, 0.4);
+}
+
+.feature-icon {
+    font-size: 60px;
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #FFFFFF;
+}
+
+.feature-item p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #212852;
+    padding: 20px;
+    color: #FFFFFF;
+    border-top: 2px solid #FFFFFF;
+    z-index: 100;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #FFFFFF;
+    font-size: 24px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #FFD700;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .nav-center, .nav-right {
+        display: none;
+    }
+
+    .nav-center.active, .nav-right.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: #212852;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links li a,
+    .nav-right a,
+    .nav-right i {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .nav-right {
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav-right i {
+        margin: 10px auto;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    .hero {
+        padding: 30px 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-icons {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .feature-item {
+        padding: 15px;
+    }
+
+    .feature-icon {
+        font-size: 50px;
+    }
+}
