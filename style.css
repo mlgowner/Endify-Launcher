@@ -1,4 +1,3 @@
-```css
 html, body {
     margin: 0;
     height: 100vh;
@@ -226,31 +225,31 @@ h2 {
 }
 
 .carousel__item:nth-child(1) {
-    animation-delay: calc(-3s);
+    animation-delay: calc(-6s);
 }
 .carousel__item:nth-child(2) {
-    animation-delay: calc(0s);
+    animation-delay: calc(-12s);
 }
 .carousel__item:nth-child(3) {
-    animation-delay: calc(3s);
+    animation-delay: calc(-18s);
 }
 .carousel__item:nth-child(4) {
-    animation-delay: calc(6s);
+    animation-delay: calc(-24s);
 }
 .carousel__item:nth-child(5) {
-    animation-delay: calc(9s);
+    animation-delay: calc(-30s);
 }
 .carousel__item:nth-child(6) {
-    animation-delay: calc(12s);
+    animation-delay: calc(-36s);
 }
 .carousel__item:nth-child(7) {
-    animation-delay: calc(15s);
+    animation-delay: calc(-42s);
 }
 .carousel__item:nth-child(8) {
-    animation-delay: calc(18s);
+    animation-delay: calc(-48s);
 }
 .carousel__item:last-child {
-    animation-delay: calc(-6s);
+    animation-delay: calc(-54s);
 }
 
 .carousel__item-head {
@@ -260,7 +259,7 @@ h2 {
     height: 90px;
     padding: 14px;
     position: relative;
-    margin-right: -45px; /* Иконка наезжает на блок, как в примере */
+    margin-right: -45px; /* Иконка наезжает на блок */
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -269,10 +268,10 @@ h2 {
 }
 
 .carousel__item-body {
-    min-width: 450px; /* Установлен min-width вместо max-width */
+    min-width: 450px; /* Установлен min-width */
     background-color: #fff;
     border-radius: 8px;
-    padding: 16px 20px 16px 70px; /* Паддинг из примера для наезда иконки */
+    padding: 16px 20px 16px 70px; /* Паддинг для наезда иконки */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -282,7 +281,7 @@ h2 {
 .title {
     text-transform: uppercase;
     font-size: 20px;
-    margin-top: 10px; /* Из примера */
+    margin-top: 0;
 }
 
 @keyframes carousel-animate-vertical {
@@ -515,4 +514,3 @@ footer {
         padding: 16px 10px 16px 70px; /* Меньший правый отступ для узких экранов */
     }
 }
-```
