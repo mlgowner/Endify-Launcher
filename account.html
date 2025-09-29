@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Endify-Launcher</title>
+    <link rel="icon" href="images/icon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&family=Work+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .account-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #000000, #2A3263, #000000);
+            background-size: 200% 200%;
+            animation: gradientShift 10s ease infinite;
+        }
+        .auth-form {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 1rem;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            color: #E7EBE7;
+        }
+        .auth-form h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 30px;
+            text-align: center;
+            color: #E7EBE7;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #E7EBE7;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group input::placeholder {
+            color: rgba(231, 235, 231, 0.6);
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #746A9F;
+            color: #E7EBE7;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .btn:hover {
+            background-color: #5a527b;
+        }
+        .toggle-auth {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .toggle-auth a {
+            color: #746A9F;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+        .user-profile {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 1rem;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            color: #E7EBE7;
+            text-align: center;
+        }
+        .user-profile i {
+            font-size: 64px;
+            color: #746A9F;
+            margin-bottom: 20px;
+        }
+        .user-profile h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #dc3545;
+            color: #E7EBE7;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Endify-Launcher</div>
+            <div class="nav-right">
+                <a href="account.html"><i class="fas fa-user"></i></a>
+                <a href="community.html"><i class="fas fa-comments"></i></a>
+            </div>
+            <details class="burger-menu">
+                <summary class="burger"></summary>
+                <div class="nav-center">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                        <li><a href="news.html">Новости</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </details>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="account-container">
+            <!-- Форма регистрации -->
+            <form id="registerForm" class="auth-form hidden">
+                <h2>Регистрация</h2>
+                <div class="form-group">
+                    <label for="regUsername">Имя пользователя:</label>
+                    <input type="text" id="regUsername" placeholder="Введите имя пользователя" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" placeholder="Введите email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль:</label>
+                    <input type="password" id="regPassword" placeholder="Введите пароль" required>
+                </div>
+                <button type="submit" class="btn">Зарегистрироваться</button>
+                <div class="toggle-auth">
+                    Уже есть аккаунт? <a onclick="toggleForm('login')">Войти</a>
+                </div>
+            </form>
+
+            <!-- Форма входа -->
+            <form id="loginForm" class="auth-form">
+                <h2>Вход</h2>
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" placeholder="Введите email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль:</label>
+                    <input type="password" id="loginPassword" placeholder="Введите пароль" required>
+                </div>
+                <button type="submit" class="btn">Войти</button>
+                <div class="toggle-auth">
+                    Нет аккаунта? <a onclick="toggleForm('register')">Зарегистрироваться</a>
+                </div>
+            </form>
+
+            <!-- Профиль пользователя -->
+            <div id="userProfile" class="user-profile hidden">
+                <i class="fas fa-user-circle"></i>
+                <h2 id="profileName">Добро пожаловать!</h2>
+                <p id="profileEmail"></p>
+                <button class="logout-btn" onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="social-icons">
+                <a href="https://x.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://vk.com" target="_blank"><i class="fab fa-vk"></i></a>
+                <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Простая эмуляция БД (в реальности используй серверную БД)
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        // Функция переключения форм
+        function toggleForm(formType) {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('userProfile').classList.add('hidden');
+            
+            if (formType === 'register') {
+                document.getElementById('registerForm').classList.remove('hidden');
+            } else if (formType === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+            }
+        }
+
+        // Регистрация
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            // Проверка на существующего пользователя
+            if (users.find(user => user.email === email)) {
+                alert('Пользователь с таким email уже существует!');
+                return;
+            }
+
+            // Сохранение в "БД"
+            const newUser = { username, email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Регистрация успешна! Теперь войдите в аккаунт.');
+            toggleForm('login');
+        });
+
+        // Вход
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showProfile();
+            } else {
+                alert('Неверный email или пароль!');
+            }
+        });
+
+        // Показать профиль
+        function showProfile() {
+            if (currentUser) {
+                document.getElementById('profileName').textContent = currentUser.username;
+                document.getElementById('profileEmail').textContent = currentUser.email;
+                document.getElementById('userProfile').classList.remove('hidden');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            }
+        }
+
+        // Выход
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('userProfile').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        }
+
+        // Проверка авторизации при загрузке
+        if (currentUser) {
+            showProfile();
+        }
+    </script>
+</body>
+</html>
