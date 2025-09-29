@@ -16,12 +16,12 @@ function updatePositions() {
             item.style.zIndex = 13;
         } else if (pos === 1) {
             item.dataset.position = 'right';
-            item.style.transform = `translate(${centerX - item.offsetWidth / 2 + 200}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(-30deg)`;
+            item.style.transform = `translate(${centerX - item.offsetWidth / 2 + 300}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(-15deg)`;
             item.style.opacity = 0.7;
             item.style.zIndex = 11;
         } else if (pos === 2) {
             item.dataset.position = 'left';
-            item.style.transform = `translate(${centerX - item.offsetWidth / 2 - 200}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(30deg)`;
+            item.style.transform = `translate(${centerX - item.offsetWidth / 2 - 300}px, ${centerY - item.offsetHeight / 2 + 50}px) rotateY(15deg)`;
             item.style.opacity = 0.7;
             item.style.zIndex = 11;
         } else {
@@ -39,3 +39,4 @@ function rotateCarousel() {
 
 updatePositions();
 setInterval(rotateCarousel, 5000);
+window.onresize = updatePositions;
