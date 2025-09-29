@@ -211,8 +211,8 @@
             <form id="loginForm" class="auth-form">
                 <h2>Вход</h2>
                 <div class="form-group">
-                    <label for="loginEmail">Email:</label>
-                    <input type="email" id="loginEmail" placeholder="user@example.com" required>
+                    <label for="loginUsername">Ник:</label>
+                    <input type="text" id="loginUsername" placeholder="latin_nick123" required>
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Пароль:</label>
@@ -337,18 +337,35 @@
             }
         });
 
-        // Вход
+        // Вход по username
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
+            const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
 
             try {
+                // Находим uid по username
+                const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                if (!usernameDoc.exists()) {
+                    alert('Ник не найден');
+                    return;
+                }
+                const { uid } = usernameDoc.data();
+
+                // Находим email по uid
+                const userDoc = await getDoc(doc(db, 'users', uid));
+                if (!userDoc.exists()) {
+                    alert('Ошибка: Пользователь не найден');
+                    return;
+                }
+                const { email } = userDoc.data();
+
+                // Пробуем войти
                 await signInWithEmailAndPassword(auth, email, password);
-                // onAuthStateChanged сработает автоматически
+                // onAuthStateChanged проверит emailVerified
             } catch (error) {
                 if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    alert('Неверный email или пароль');
+                    alert('Неверный ник или пароль');
                 } else {
                     alert('Ошибка входа: ' + error.message);
                 }
@@ -402,6 +419,11 @@
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
+                if (!user.emailVerified) {
+                    alert('Подтвердите почту для входа в аккаунт');
+                    await signOut(auth);
+                    return;
+                }
                 await showProfile(user);
             } else {
                 currentUser = null;
