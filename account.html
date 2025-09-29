@@ -231,11 +231,10 @@
     </footer>
 
     <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
-        import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js"></script>
+    <script>
         // Твой Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyAZVr6qcaglTJgqeLhJdv0uWJPt2WZ41Gs",
@@ -247,10 +246,10 @@
             measurementId: "G-X7J63FTHKS"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
         let currentUser = null;
 
         // Функция переключения форм
@@ -296,7 +295,7 @@
         }
 
         // Регистрация
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('regUsername').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -304,86 +303,91 @@
 
             if (!validateUsername(username) || !validatePassword(password)) return;
 
-            try {
-                // Создаем пользователя
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    // Batch: сохраняем профиль и уникальность ника
+                    const userDoc = db.collection('users').doc(user.uid);
+                    const usernameDoc = db.collection('usernames').doc(username);
 
-                // Batch: сохраняем профиль и уникальность ника
-                const userDoc = doc(db, 'users', user.uid);
-                const usernameDoc = doc(db, 'usernames', username);
-
-                await setDoc(userDoc, { username, email });
-                await setDoc(usernameDoc, { uid: user.uid });
-
-                alert('Регистрация успешна! Теперь войдите.');
-                toggleForm('login');
-            } catch (error) {
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('Email уже зарегистрирован');
-                } else if (error.code === 'auth/weak-password') {
-                    alert('Пароль слишком слабый');
-                } else {
-                    alert('Ошибка регистрации: ' + error.message);
-                }
-            }
+                    return Promise.all([
+                        userDoc.set({ username, email }),
+                        usernameDoc.set({ uid: user.uid })
+                    ]).then(() => {
+                        alert('Регистрация успешна! Теперь войдите.');
+                        toggleForm('login');
+                    });
+                })
+                .catch((error) => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        alert('Email уже зарегистрирован');
+                    } else if (error.code === 'auth/weak-password') {
+                        alert('Пароль слишком слабый');
+                    } else {
+                        alert('Ошибка регистрации: ' + error.message);
+                    }
+                });
         });
 
         // Вход
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
 
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                // onAuthStateChanged сработает автоматически
-            } catch (error) {
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    alert('Неверный email или пароль');
-                } else {
-                    alert('Ошибка входа: ' + error.message);
-                }
-            }
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    // onAuthStateChanged сработает автоматически
+                })
+                .catch((error) => {
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                        alert('Неверный email или пароль');
+                    } else {
+                        alert('Ошибка входа: ' + error.message);
+                    }
+                });
         });
 
         // Показать профиль
-        async function showProfile(user) {
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            if (userDoc.exists()) {
-                const data = userDoc.data();
-                document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
-                document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
-                document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
-            }
-            document.getElementById('userProfile').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
+        function showProfile(user) {
+            db.collection('users').doc(user.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
+                        document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
+                        document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
+                    }
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('registerForm').classList.add('hidden');
+                })
+                .catch((error) => {
+                    alert('Ошибка загрузки профиля: ' + error.message);
+                });
         }
 
         // Выход
-        async function logout() {
-            await signOut(auth);
-            currentUser = null;
-            document.getElementById('userProfile').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
+        function logout() {
+            auth.signOut().then(() => {
+                currentUser = null;
+                document.getElementById('userProfile').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+            }).catch((error) => {
+                alert('Ошибка выхода: ' + error.message);
+            });
         }
 
         // Мониторинг состояния авторизации
-        onAuthStateChanged(auth, async (user) => {
+        auth.onAuthStateChanged((user) => {
             if (user) {
                 currentUser = user;
-                await showProfile(user);
+                showProfile(user);
             } else {
                 currentUser = null;
                 toggleForm('login');
             }
         });
-
-        // Проверка на загрузке
-        if (currentUser) {
-            showProfile(currentUser);
-        }
     </script>
 </body>
 </html>
