@@ -315,7 +315,9 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
+                console.log('User created, uid:', user.uid);
                 await sendEmailVerification(user);
+                console.log('Verification email sent');
 
                 console.log('Saving user data to users collection, uid:', user.uid);
                 await setDoc(doc(db, 'users', user.uid), { username, email });
