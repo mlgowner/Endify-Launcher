@@ -1,3 +1,4 @@
+```css
 html, body {
     margin: 0;
     height: 100vh;
@@ -286,12 +287,12 @@ h2 {
 
 @keyframes carousel-animate-vertical {
     0% {
-        transform: translateY(100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(50px) translateY(100%) scale(0.5); /* Неактивные блоки смещены вправо на 50px */
         opacity: 0;
         visibility: hidden;
     }
     3%, 11.11% {
-        transform: translateY(100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+        transform: translateX(50px) translateY(100%) scale(0.7); /* Неактивные блоки смещены вправо на 50px */
         opacity: 0.4;
         visibility: visible;
     }
@@ -301,17 +302,17 @@ h2 {
         visibility: visible;
     }
     25.22%, 33.33% {
-        transform: translateY(-100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+        transform: translateX(50px) translateY(-100%) scale(0.7); /* Неактивные блоки смещены вправо на 50px */
         opacity: 0.4;
         visibility: visible;
     }
     36.33% {
-        transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(50px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 50px */
         opacity: 0;
         visibility: visible;
     }
     100% {
-        transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(50px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 50px */
         opacity: 0;
         visibility: hidden;
     }
@@ -465,12 +466,12 @@ footer {
 
     @keyframes carousel-animate-vertical {
         0% {
-            transform: translateY(100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(20px) translateY(100%) scale(0.5); /* Неактивные блоки смещены вправо на 20px */
             opacity: 0;
             visibility: hidden;
         }
         3%, 11.11% {
-            transform: translateY(100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+            transform: translateX(20px) translateY(100%) scale(0.7); /* Неактивные блоки смещены вправо на 20px */
             opacity: 0.4;
             visibility: visible;
         }
@@ -480,17 +481,17 @@ footer {
             visibility: visible;
         }
         25.22%, 33.33% {
-            transform: translateY(-100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+            transform: translateX(20px) translateY(-100%) scale(0.7); /* Неактивные блоки смещены вправо на 20px */
             opacity: 0.4;
             visibility: visible;
         }
         36.33% {
-            transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(20px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 20px */
             opacity: 0;
             visibility: visible;
         }
         100% {
-            transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(20px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 20px */
             opacity: 0;
             visibility: hidden;
         }
@@ -514,3 +515,4 @@ footer {
         padding: 16px 10px 16px 70px; /* Меньший правый отступ для узких экранов */
     }
 }
+```
