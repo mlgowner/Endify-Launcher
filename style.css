@@ -161,7 +161,7 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 52px;
     font-weight: 600;
-    margin: 60px 0 30px; /* Изменено с 100px на 60px для верхнего отступа */
+    margin: 50px 0 30px; /* Изменено с 60px на 50px для верхнего отступа */
     color: #E7EBE7;
     text-shadow: 0 0 10px rgba(42, 50, 99, 0.7);
 }
@@ -170,7 +170,7 @@ h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     font-weight: 600;
-    margin: 0 0 40px; /* Изменено с 30px на 40px для нижнего отступа */
+    margin: 0 0 40px; /* Сохранено изменение с 30px на 40px */
     color: #E7EBE7;
     line-height: 1.6;
 }
@@ -270,18 +270,19 @@ h2 {
 
 .carousel__item-body {
     min-width: 450px; /* Сохранен текущий min-width */
+    height: 165px; /* Добавлена фиксированная высота */
     background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
     backdrop-filter: blur(18px); /* Размытие фона */
     -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
     border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
     border-radius: 1rem; /* Скругление углов */
-    padding: 16px 20px 16px 70px; /* Сохранен текущий padding */
+    padding: 16px 20px 5px 70px; /* Изменен нижний padding с 16px на 5px */
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left; /* Текст и заголовок прижаты влево */
-    color: #E7EBE7; /* Изменено с whitesmoke на #E7EBE7 */
+    color: #E7EBE7; /* Цвет текста */
     z-index: 10; /* Для стеклянного эффекта */
 }
 
@@ -448,7 +449,7 @@ footer {
 
     h1 {
         font-size: 36px;
-        margin: 60px 0 30px; /* Сохранено изменение для h1 */
+        margin: 50px 0 30px; /* Сохранено изменение для h1 */
     }
 
     h2 {
@@ -471,14 +472,15 @@ footer {
 
     .carousel__item-body {
         min-width: 100%; /* Адаптивная ширина для мобильных */
+        height: 165px; /* Добавлена фиксированная высота */
         background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
         backdrop-filter: blur(18px); /* Размытие фона */
         -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
         border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
         border-radius: 1rem; /* Скругление углов */
-        padding: 16px 15px 16px 70px; /* Сохранен паддинг для иконки */
-        color: #E7EBE7; /* Изменено с whitesmoke на #E7EBE7 */
+        padding: 16px 15px 5px 70px; /* Изменен нижний padding с 16px на 5px */
+        color: #E7EBE7; /* Цвет текста */
         z-index: 10; /* Для стеклянного эффекта */
         text-align: left; /* Текст и заголовок прижаты влево */
     }
@@ -544,7 +546,7 @@ footer {
 
     h1 {
         font-size: 28px;
-        margin: 60px 0 30px; /* Сохранено изменение для h1 */
+        margin: 50px 0 30px; /* Сохранено изменение для h1 */
     }
 
     h2 {
@@ -553,14 +555,15 @@ footer {
     }
 
     .carousel__item-body {
-        padding: 16px 10px 16px 70px; /* Меньший правый отступ для узких экранов */
+        height: 165px; /* Добавлена фиксированная высота */
+        padding: 16px 10px 5px 70px; /* Изменен нижний padding с 16px на 5px */
         background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
-        backdrop-filter: blur(18px); /* Размытие фона */
+       -transf backdrop-filter: blur(18px); /* Размытие фона */
         -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
         border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
         border-radius: 1rem; /* Скругление углов */
-        color: #E7EBE7; /* Изменено с whitesmoke на #E7EBE7 */
+        color: #E7EBE7; /* Цвет текста */
         z-index: 10; /* Для стеклянного эффекта */
         text-align: left; /* Текст и заголовок прижаты влево */
     }
