@@ -6,7 +6,7 @@ function updatePositions() {
     const centerY = container.offsetHeight / 2;
     items.forEach(item => {
         item.style.position = 'absolute';
-        item.style.width = '240px';
+        item.style.width = '100%';
         item.style.left = '50%';
         item.style.transform = `translateX(-50%) translateY(${centerY - item.offsetHeight / 2}px)`;
     });
