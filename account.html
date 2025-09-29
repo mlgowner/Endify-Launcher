@@ -181,7 +181,7 @@
                     <input type="email" id="regEmail" placeholder="user@example.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="regPassword">Пароль (минимум 5 символов):</label>
+                    <label for="regPassword">Пароль (минимум 6 символов):</label>
                     <input type="password" id="regPassword" placeholder="password123" required>
                     <div id="passwordError" class="error hidden"></div>
                 </div>
@@ -231,11 +231,12 @@
     </footer>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js"></script>
-    <script>
-        // Твой Firebase Config
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+        // Твой Firebase Config (замени apiKey на новый, если получил)
         const firebaseConfig = {
             apiKey: "AIzaSyAZVr6qcaglTJgqeLhJdv0uWJPt2WZ41Gs",
             authDomain: "endify-launcher-7cf70.firebaseapp.com",
@@ -247,13 +248,13 @@
         };
 
         // Инициализация Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
         let currentUser = null;
 
         // Функция переключения форм
-        function toggleForm(formType) {
+        window.toggleForm = function(formType) {
             document.getElementById('registerForm').classList.add('hidden');
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('userProfile').classList.add('hidden');
@@ -263,7 +264,7 @@
             } else if (formType === 'login') {
                 document.getElementById('loginForm').classList.remove('hidden');
             }
-        }
+        };
 
         // Валидация ника (латиница, цифры, _)
         function validateUsername(username) {
@@ -282,110 +283,95 @@
             return true;
         }
 
-        // Валидация пароля (≥5)
-        function validatePassword(password) {
-            const errorEl = document.getElementById('passwordError');
-            if (password.length < 5) {
-                errorEl.textContent = 'Пароль минимум 5 символов';
-                errorEl.classList.remove('hidden');
-                return false;
-            }
-            errorEl.classList.add('hidden');
-            return true;
-        }
-
         // Регистрация
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const username = document.getElementById('regUsername').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
 
-            if (!validateUsername(username) || !validatePassword(password)) return;
+            if (!validateUsername(username)) return;
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    // Batch: сохраняем профиль и уникальность ника
-                    const userDoc = db.collection('users').doc(user.uid);
-                    const usernameDoc = db.collection('usernames').doc(username);
+            try {
+                // Создаем пользователя
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
 
-                    return Promise.all([
-                        userDoc.set({ username, email }),
-                        usernameDoc.set({ uid: user.uid })
-                    ]).then(() => {
-                        alert('Регистрация успешна! Теперь войдите.');
-                        toggleForm('login');
-                    });
-                })
-                .catch((error) => {
-                    if (error.code === 'auth/email-already-in-use') {
-                        alert('Email уже зарегистрирован');
-                    } else if (error.code === 'auth/weak-password') {
-                        alert('Пароль слишком слабый');
-                    } else {
-                        alert('Ошибка регистрации: ' + error.message);
-                    }
-                });
+                // Сохраняем профиль и уникальность ника
+                await setDoc(doc(db, 'users', user.uid), { username, email });
+                await setDoc(doc(db, 'usernames', username), { uid: user.uid });
+
+                alert('Регистрация успешна! Теперь войдите.');
+                window.toggleForm('login');
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('Email уже зарегистрирован');
+                } else if (error.code === 'auth/weak-password') {
+                    alert('Пароль должен быть минимум 6 символов');
+                } else if (error.code === 'auth/invalid-api-key') {
+                    alert('Ошибка: Неверный API key. Проверьте конфигурацию Firebase.');
+                } else {
+                    alert('Ошибка регистрации: ' + error.message);
+                }
+            }
         });
 
         // Вход
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
 
-            auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    // onAuthStateChanged сработает автоматически
-                })
-                .catch((error) => {
-                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                        alert('Неверный email или пароль');
-                    } else {
-                        alert('Ошибка входа: ' + error.message);
-                    }
-                });
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                // onAuthStateChanged сработает автоматически
+            } catch (error) {
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    alert('Неверный email или пароль');
+                } else {
+                    alert('Ошибка входа: ' + error.message);
+                }
+            }
         });
 
         // Показать профиль
-        function showProfile(user) {
-            db.collection('users').doc(user.uid).get()
-                .then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
-                        document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
-                        document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
-                    }
-                    document.getElementById('userProfile').classList.remove('hidden');
-                    document.getElementById('loginForm').classList.add('hidden');
-                    document.getElementById('registerForm').classList.add('hidden');
-                })
-                .catch((error) => {
-                    alert('Ошибка загрузки профиля: ' + error.message);
-                });
+        async function showProfile(user) {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (userDoc.exists()) {
+                    const data = userDoc.data();
+                    document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
+                    document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
+                    document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
+                }
+                document.getElementById('userProfile').classList.remove('hidden');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            } catch (error) {
+                alert('Ошибка загрузки профиля: ' + error.message);
+            }
         }
 
         // Выход
-        function logout() {
-            auth.signOut().then(() => {
+        window.logout = async function() {
+            try {
+                await signOut(auth);
                 currentUser = null;
                 document.getElementById('userProfile').classList.add('hidden');
                 document.getElementById('loginForm').classList.remove('hidden');
-            }).catch((error) => {
+            } catch (error) {
                 alert('Ошибка выхода: ' + error.message);
-            });
-        }
+            }
+        };
 
         // Мониторинг состояния авторизации
-        auth.onAuthStateChanged((user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                showProfile(user);
+                await showProfile(user);
             } else {
                 currentUser = null;
-                toggleForm('login');
+                window.toggleForm('login');
             }
         });
     </script>
