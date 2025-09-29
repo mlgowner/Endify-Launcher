@@ -180,7 +180,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: 20px 20px; /* Уменьшил отступ сверху, чтобы поднять карусель */
 }
 
 .carousel-container {
@@ -202,7 +202,7 @@ h2 {
 .carousel {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Увеличил для большего пространства */
+    max-width: 600px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -265,13 +265,14 @@ h2 {
 
 .carousel__item-body {
     width: 100%;
-    min-width: 400px; /* Установил минимальную ширину для продолговатости */
+    min-width: 400px;
     background-color: #fff;
     border-radius: 8px;
-    padding: 16px 20px 16px 70px;
+    padding: 10px 20px 0px 55px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center; /* Центрирование текста внутри блока */
 }
 
 .title {
