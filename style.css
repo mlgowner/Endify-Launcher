@@ -203,7 +203,7 @@ h2 {
     opacity: 0;
     filter: drop-shadow(0 2px 2px #555);
     will-change: transform, opacity;
-    animation: carousel-animate-vertical 21s linear infinite;
+    animation: carousel-animate-vertical 27s linear infinite;
 }
 
 .carousel__item-head {
@@ -246,24 +246,24 @@ h2 {
     visibility: hidden;
   }
   3%,
-  14.28% {
+  11.11% {
     transform: translateY(100%) scale(0.7);
-    opacity: .4;
+    opacity: 0.4;
     visibility: visible;
   }
-  17.28%,
-  28.57% {
+  14.11%,
+  22.22% {
     transform: translateY(0) scale(1);
     opacity: 1;
     visibility: visible;
   }
-  31.57%,
-  42.85% {
+  25.22%,
+  33.33% {
     transform: translateY(-100%) scale(0.7);
-    opacity: .4;
+    opacity: 0.4;
     visibility: visible;
   }
-  45.85% {
+  36.33% {
     transform: translateY(-100%) scale(0.5);
     opacity: 0;
     visibility: visible;
