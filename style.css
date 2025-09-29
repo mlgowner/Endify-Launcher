@@ -254,7 +254,7 @@ h2 {
 
 .carousel__item-head {
     border-radius: 50%;
-    background-color: #d7f7fc;
+    background-color: #2A3263; /* Цвет кружка изменен на #2A3263 */
     width: 90px;
     height: 90px;
     padding: 14px;
@@ -268,14 +268,20 @@ h2 {
 }
 
 .carousel__item-body {
-    min-width: 450px; /* Установлен min-width */
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 16px 20px 16px 70px; /* Паддинг для наезда иконки */
+    min-width: 450px; /* Сохранен текущий min-width */
+    background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
+    backdrop-filter: blur(18px); /* Размытие фона */
+    -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
+    border-radius: 1rem; /* Скругление углов */
+    padding: 16px 20px 16px 70px; /* Сохранен текущий padding */
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    color: whitesmoke; /* Цвет текста для читаемости */
+    z-index: 10; /* Для стеклянного эффекта */
 }
 
 .title {
@@ -452,11 +458,20 @@ footer {
 
     .carousel__item-body {
         min-width: 100%; /* Адаптивная ширина для мобильных */
+        background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
+        backdrop-filter: blur(18px); /* Размытие фона */
+        -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
+        border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
+        border-radius: 1rem; /* Скругление углов */
         padding: 16px 15px 16px 70px; /* Сохранен паддинг для иконки */
+        color: whitesmoke; /* Цвет текста для читаемости */
+        z-index: 10; /* Для стеклянного эффекта */
     }
 
     .carousel__item-head {
         margin-right: -45px; /* Сохранен наезд иконки */
+        background-color: #2A3263; /* Цвет кружка изменен на #2A3263 */
     }
 
     .carousel__item {
@@ -512,5 +527,13 @@ footer {
 
     .carousel__item-body {
         padding: 16px 10px 16px 70px; /* Меньший правый отступ для узких экранов */
+        background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
+        backdrop-filter: blur(18px); /* Размытие фона */
+        -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
+        border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
+        border-radius: 1rem; /* Скругление углов */
+        color: whitesmoke; /* Цвет текста для читаемости */
+        z-index: 10; /* Для стеклянного эффекта */
     }
 }
