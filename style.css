@@ -161,7 +161,7 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 52px;
     font-weight: 600;
-    margin: 50px 0 30px; /* Изменено с 60px на 50px для верхнего отступа */
+    margin: 50px 0 30px; /* Сохранено изменение для h1 */
     color: #E7EBE7;
     text-shadow: 0 0 10px rgba(42, 50, 99, 0.7);
 }
@@ -170,7 +170,7 @@ h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     font-weight: 600;
-    margin: 0 0 40px; /* Сохранено изменение с 30px на 40px */
+    margin: 0 0 40px; /* Сохранено изменение для h2 */
     color: #E7EBE7;
     line-height: 1.6;
 }
@@ -207,7 +207,7 @@ h2 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-left: -500px; /* Сдвиг карусели влево */
+    margin-left: -580px; /* Изменено с -500px на -580px */
     margin-bottom: 150px; /* Сдвиг карусели вверх */
 }
 
@@ -269,15 +269,15 @@ h2 {
 }
 
 .carousel__item-body {
-    min-width: 450px; /* Сохранен текущий min-width */
-    height: 165px; /* Добавлена фиксированная высота */
+    min-width: 500px; /* Изменено с 450px на 500px */
+    height: 150px; /* Изменено с 165px на 150px */
     background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
     backdrop-filter: blur(18px); /* Размытие фона */
     -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
     border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
     border-radius: 1rem; /* Скругление углов */
-    padding: 16px 20px 5px 70px; /* Изменен нижний padding с 16px на 5px */
+    padding: 16px 20px 5px 70px; /* Сохранен текущий padding */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -294,42 +294,42 @@ h2 {
 
 @keyframes carousel-animate-vertical {
     0% {
-        transform: translateX(85px) translateY(100%) scale(0.5); /* Неактивные блоки смещены вправо на 85px */
+        transform: translateX(95px) translateY(100%) scale(0.5); /* Изменено с 85px на 95px */
         opacity: 0;
         visibility: hidden;
     }
     1% {
-        transform: translateX(85px) translateY(100%) scale(0.6); /* Промежуточный кадр для плавного перехода */
+        transform: translateX(95px) translateY(100%) scale(0.6); /* Изменено с 85px на 95px */
         opacity: 0.2;
         visibility: visible;
     }
     3%, 11.11% {
-        transform: translateX(85px) translateY(100%) scale(0.7); /* Неактивные блоки смещены вправо на 85px */
+        transform: translateX(95px) translateY(100%) scale(0.7); /* Изменено с 85px на 95px */
         opacity: 0.4;
         visibility: visible;
     }
     14.11%, 22.22% {
-        transform: translateX(0) translateY(0) scale(1); /* Активный блок следует margin-left: -500px */
+        transform: translateX(0) translateY(0) scale(1); /* Активный блок следует margin-left: -580px */
         opacity: 1;
         visibility: visible;
     }
     25.22%, 33.33% {
-        transform: translateX(85px) translateY(-100%) scale(0.7); /* Неактивные блоки смещены вправо на 85px */
+        transform: translateX(95px) translateY(-100%) scale(0.7); /* Изменено с 85px на 95px */
         opacity: 0.4;
         visibility: visible;
     }
     34.33% {
-        transform: translateX(85px) translateY(-100%) scale(0.6); /* Промежуточный кадр для плавного перехода */
+        transform: translateX(95px) translateY(-100%) scale(0.6); /* Изменено с 85px на 95px */
         opacity: 0.2;
         visibility: visible;
     }
     36.33% {
-        transform: translateX(85px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 85px */
+        transform: translateX(95px) translateY(-100%) scale(0.5); /* Изменено с 85px на 95px */
         opacity: 0;
         visibility: visible;
     }
     100% {
-        transform: translateX(85px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 85px */
+        transform: translateX(95px) translateY(-100%) scale(0.5); /* Изменено с 85px на 95px */
         opacity: 0;
         visibility: hidden;
     }
@@ -466,20 +466,20 @@ footer {
     }
 
     .carousel {
-        margin-left: -100px; /* Меньший сдвиг влево для мобильных */
-        margin-bottom: 50px; /* Меньший сдвиг вверх для мобильных */
+        margin-left: -100px; /* Сохранен меньший сдвиг влево для мобильных */
+        margin-bottom: 50px; /* Сохранен меньший сдвиг вверх для мобильных */
     }
 
     .carousel__item-body {
-        min-width: 100%; /* Адаптивная ширина для мобильных */
-        height: 165px; /* Добавлена фиксированная высота */
+        min-width: 100%; /* Сохранена адаптивная ширина для мобильных */
+        height: 150px; /* Изменено с 165px на 150px */
         background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
         backdrop-filter: blur(18px); /* Размытие фона */
         -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
         border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
         border-radius: 1rem; /* Скругление углов */
-        padding: 16px 15px 5px 70px; /* Изменен нижний padding с 16px на 5px */
+        padding: 16px 15px 5px 70px; /* Сохранен padding с измененным нижним отступом */
         color: #E7EBE7; /* Цвет текста */
         z-index: 10; /* Для стеклянного эффекта */
         text-align: left; /* Текст и заголовок прижаты влево */
@@ -497,17 +497,17 @@ footer {
 
     @keyframes carousel-animate-vertical {
         0% {
-            transform: translateX(34px) translateY(100%) scale(0.5); /* Неактивные блоки смещены вправо на 34px */
+            transform: translateX(34px) translateY(100%) scale(0.5); /* Сохранено для мобильных */
             opacity: 0;
             visibility: hidden;
         }
         1% {
-            transform: translateX(34px) translateY(100%) scale(0.6); /* Промежуточный кадр для плавного перехода */
+            transform: translateX(34px) translateY(100%) scale(0.6); /* Сохранено для мобильных */
             opacity: 0.2;
             visibility: visible;
         }
         3%, 11.11% {
-            transform: translateX(34px) translateY(100%) scale(0.7); /* Неактивные блоки смещены вправо на 34px */
+            transform: translateX(34px) translateY(100%) scale(0.7); /* Сохранено для мобильных */
             opacity: 0.4;
             visibility: visible;
         }
@@ -517,22 +517,22 @@ footer {
             visibility: visible;
         }
         25.22%, 33.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.7); /* Неактивные блоки смещены вправо на 34px */
+            transform: translateX(34px) translateY(-100%) scale(0.7); /* Сохранено для мобильных */
             opacity: 0.4;
             visibility: visible;
         }
         34.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.6); /* Промежуточный кадр для плавного перехода */
+            transform: translateX(34px) translateY(-100%) scale(0.6); /* Сохранено для мобильных */
             opacity: 0.2;
             visibility: visible;
         }
         36.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 34px */
+            transform: translateX(34px) translateY(-100%) scale(0.5); /* Сохранено для мобильных */
             opacity: 0;
             visibility: visible;
         }
         100% {
-            transform: translateX(34px) translateY(-100%) scale(0.5); /* Неактивные блоки смещены вправо на 34px */
+            transform: translateX(34px) translateY(-100%) scale(0.5); /* Сохранено для мобильных */
             opacity: 0;
             visibility: hidden;
         }
@@ -555,11 +555,11 @@ footer {
     }
 
     .carousel__item-body {
-        height: 165px; /* Добавлена фиксированная высота */
-        padding: 16px 10px 5px 70px; /* Изменен нижний padding с 16px на 5px */
+        height: 150px; /* Изменено с 165px на 150px */
+        padding: 16px 10px 5px 70px; /* Сохранен padding с измененным нижним отступом */
         background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
-       -transf backdrop-filter: blur(18px); /* Размытие фона */
+        backdrop-filter: blur(18px); /* Размытие фона */
         -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
         border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
         border-radius: 1rem; /* Скругление углов */
