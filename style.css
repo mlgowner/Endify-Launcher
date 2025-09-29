@@ -1,4 +1,3 @@
-```css
 html, body {
     margin: 0;
     height: 100vh;
@@ -515,4 +514,4 @@ footer {
         padding: 16px 10px 16px 70px; /* Меньший правый отступ для узких экранов */
     }
 }
-```
+
