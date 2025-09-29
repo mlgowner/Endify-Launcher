@@ -1,6 +1,6 @@
 const carousel = document.querySelector('.carousel');
 const items = Array.from(carousel.children);
-const container = document.querySelector('.carousel-container');
+const container = document.queryselector('.carousel-container');
 
 function updatePositions() {
     const centerY = container.offsetHeight / 2;
