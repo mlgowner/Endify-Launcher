@@ -1,12 +1,16 @@
 html, body {
     margin: 0;
     height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
     color: #E7EBE7;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 header {
@@ -185,6 +189,14 @@ h2 {
     position: relative;
 }
 
+.wrapper {
+    background: linear-gradient(60deg, #420285, #08BDBD);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .carousel {
     position: relative;
     width: 100%;
@@ -206,6 +218,34 @@ h2 {
     animation: carousel-animate-vertical 27s linear infinite;
 }
 
+.carousel__item:nth-child(1) {
+    animation-delay: calc(-6s);
+}
+.carousel__item:nth-child(2) {
+    animation-delay: calc(-12s);
+}
+.carousel__item:nth-child(3) {
+    animation-delay: calc(-18s);
+}
+.carousel__item:nth-child(4) {
+    animation-delay: calc(-24s);
+}
+.carousel__item:nth-child(5) {
+    animation-delay: calc(-30s);
+}
+.carousel__item:nth-child(6) {
+    animation-delay: calc(-36s);
+}
+.carousel__item:nth-child(7) {
+    animation-delay: calc(-42s);
+}
+.carousel__item:nth-child(8) {
+    animation-delay: calc(-48s);
+}
+.carousel__item:last-child {
+    animation-delay: calc(-54s);
+}
+
 .carousel__item-head {
     border-radius: 50%;
     background-color: #d7f7fc;
@@ -223,14 +263,9 @@ h2 {
 
 .carousel__item-body {
     width: 100%;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-color: #fff;
     border-radius: 8px;
     padding: 16px 20px 16px 70px;
-    color: #E7EBE7;
 }
 
 .title {
@@ -248,7 +283,7 @@ h2 {
   3%,
   11.11% {
     transform: translateY(100%) scale(0.7);
-    opacity: 0.4;
+    opacity: .4;
     visibility: visible;
   }
   14.11%,
@@ -260,7 +295,7 @@ h2 {
   25.22%,
   33.33% {
     transform: translateY(-100%) scale(0.7);
-    opacity: 0.4;
+    opacity: .4;
     visibility: visible;
   }
   36.33% {
