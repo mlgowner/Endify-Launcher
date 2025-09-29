@@ -207,6 +207,7 @@ h2 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-left: -100px; /* Сдвиг карусели влево */
 }
 
 .carousel__item {
@@ -257,7 +258,7 @@ h2 {
     height: 90px;
     padding: 14px;
     position: relative;
-    margin-right: 10px; /* Уменьшено перекрытие для центрирования */
+    margin-right: 10px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -266,11 +267,10 @@ h2 {
 }
 
 .carousel__item-body {
-    width: 100%;
-    max-width: 510px; /* 600px - 90px (иконка) - 10px (margin) */
+    min-width: 510px; /* Изменено с max-width на min-width */
     background-color: #fff;
     border-radius: 8px;
-    padding: 10px 20px; /* Убрано padding-left: 55px для центрирования */
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -444,13 +444,17 @@ footer {
         height: 100%;
     }
 
+    .carousel {
+        margin-left: -50px; /* Меньший сдвиг влево для мобильных */
+    }
+
     .carousel__item-body {
-        max-width: 100%; /* Убираем ограничение по ширине для адаптивности */
-        padding: 10px 15px; /* Меньшие отступы для мобильных */
+        min-width: 100%; /* Адаптивная ширина для мобильных */
+        padding: 10px 15px;
     }
 
     .carousel__item-head {
-        margin-right: 5px; /* Меньший отступ для мобильных */
+        margin-right: 5px;
     }
 
     .footer-content {
@@ -478,6 +482,6 @@ footer {
     }
 
     .carousel__item-body {
-        padding: 10px 10px; /* Еще меньшие отступы */
+        padding: 10px 10px;
     }
 }
