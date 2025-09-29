@@ -254,7 +254,7 @@ h2 {
 
 .carousel__item-head {
     border-radius: 50%;
-    background-color: #2A3263; /* Цвет кружка изменен на #2A3263 */
+    background-color: #2A3263; /* Цвет кружка */
     width: 90px;
     height: 90px;
     padding: 14px;
@@ -265,6 +265,7 @@ h2 {
     align-items: center;
     justify-content: center;
     font-size: 50px;
+    z-index: 11; /* Кружок поверх карточки */
 }
 
 .carousel__item-body {
@@ -279,7 +280,7 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    text-align: left; /* Текст и заголовок прижаты влево */
     color: whitesmoke; /* Цвет текста для читаемости */
     z-index: 10; /* Для стеклянного эффекта */
 }
@@ -467,11 +468,13 @@ footer {
         padding: 16px 15px 16px 70px; /* Сохранен паддинг для иконки */
         color: whitesmoke; /* Цвет текста для читаемости */
         z-index: 10; /* Для стеклянного эффекта */
+        text-align: left; /* Текст и заголовок прижаты влево */
     }
 
     .carousel__item-head {
         margin-right: -45px; /* Сохранен наезд иконки */
-        background-color: #2A3263; /* Цвет кружка изменен на #2A3263 */
+        background-color: #2A3263; /* Цвет кружка */
+        z-index: 11; /* Кружок поверх карточки */
     }
 
     .carousel__item {
@@ -535,5 +538,6 @@ footer {
         border-radius: 1rem; /* Скругление углов */
         color: whitesmoke; /* Цвет текста для читаемости */
         z-index: 10; /* Для стеклянного эффекта */
+        text-align: left; /* Текст и заголовок прижаты влево */
     }
 }
