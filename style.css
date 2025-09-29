@@ -177,7 +177,6 @@ h2 {
 }
 
 .carousel-container {
-    perspective: 1500px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -195,7 +194,7 @@ h2 {
     flex-direction: column;
 }
 
-.feature-item {
+.carousel__item {
     display: flex;
     align-items: center;
     position: absolute;
@@ -204,29 +203,29 @@ h2 {
     opacity: 0;
     filter: drop-shadow(0 2px 2px #555);
     will-change: transform, opacity;
-    animation: carousel-animate-vertical 27s linear infinite;
+    animation: carousel-animate-vertical 21s linear infinite;
 }
 
-.feature-item:nth-child(1) {
+.carousel__item:nth-child(1) {
+    animation-delay: calc(-3s);
+}
+.carousel__item:nth-child(2) {
     animation-delay: calc(-6s);
 }
-.feature-item:nth-child(2) {
+.carousel__item:nth-child(3) {
+    animation-delay: calc(-9s);
+}
+.carousel__item:nth-child(4) {
     animation-delay: calc(-12s);
 }
-.feature-item:nth-child(3) {
+.carousel__item:nth-child(5) {
+    animation-delay: calc(-15s);
+}
+.carousel__item:nth-child(6) {
     animation-delay: calc(-18s);
 }
-.feature-item:nth-child(4) {
-    animation-delay: calc(-24s);
-}
-.feature-item:nth-child(5) {
-    animation-delay: calc(-30s);
-}
-.feature-item:nth-child(6) {
-    animation-delay: calc(-36s);
-}
-.feature-item:nth-child(7) {
-    animation-delay: calc(-42s);
+.carousel__item:nth-child(7) {
+    animation-delay: calc(-21s);
 }
 
 .carousel__item-head {
@@ -258,11 +257,6 @@ h2 {
     margin-top: 10px;
 }
 
-.feature-icon {
-    font-size: 50px;
-    color: #2A3263;
-}
-
 @keyframes carousel-animate-vertical {
   0% {
     transform: translateY(100%) scale(0.5);
@@ -270,24 +264,24 @@ h2 {
     visibility: hidden;
   }
   3%,
-  14.28% {
+  11.11% {
     transform: translateY(100%) scale(0.7);
     opacity: .4;
     visibility: visible;
   }
-  17.28%,
-  28.57% {
+  14.11%,
+  22.22% {
     transform: translateY(0) scale(1);
     opacity: 1;
     visibility: visible;
   }
-  31.57%,
-  42.85% {
+  25.22%,
+  33.33% {
     transform: translateY(-100%) scale(0.7);
     opacity: .4;
     visibility: visible;
   }
-  45.85% {
+  36.33% {
     transform: translateY(-100%) scale(0.5);
     opacity: 0;
     visibility: visible;
@@ -304,9 +298,7 @@ footer {
     color: #E7EBE7;
     z-index: 100;
     font-family: 'Open Sans', sans-serif;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: relative;
 }
 
 .footer-content {
