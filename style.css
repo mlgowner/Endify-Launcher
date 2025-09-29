@@ -178,7 +178,7 @@ h2 {
 
 .carousel-container {
     perspective: 1500px;
-    height: 300px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,14 +187,12 @@ h2 {
 }
 
 .carousel {
+    position: relative;
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transform-style: preserve-3d;
-    transform-origin: center center;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .feature-item {
@@ -211,29 +209,29 @@ h2 {
     position: absolute;
     width: 240px;
     text-align: center;
-    opacity: 0.7;
-    transform-origin: center center;
+    opacity: 0;
+    filter: drop-shadow(0 2px 2px #555);
+    will-change: transform, opacity;
+    animation: carousel-animate-vertical 27s linear infinite;
 }
 
-.feature-item[data-position="center"] {
-    transform: translateZ(150px) scale(1.2);
-    opacity: 1;
-    z-index: 13;
+.feature-item:nth-child(1) {
+    animation-delay: calc(-6s);
 }
-
-.feature-item[data-position="left"] {
-    transform: translateX(-300px) translateY(50px);
-    z-index: 11;
+.feature-item:nth-child(2) {
+    animation-delay: calc(-12s);
 }
-
-.feature-item[data-position="right"] {
-    transform: translateX(300px) translateY(50px);
-    z-index: 11;
+.feature-item:nth-child(3) {
+    animation-delay: calc(-18s);
 }
-
-.feature-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(42, 50, 99, 0.4);
+.feature-item:nth-child(4) {
+    animation-delay: calc(-24s);
+}
+.feature-item:nth-child(5) {
+    animation-delay: calc(-30s);
+}
+.feature-item:nth-child(6) {
+    animation-delay: calc(-36s);
 }
 
 .feature-icon {
@@ -255,6 +253,42 @@ h2 {
     font-size: 14px;
     font-weight: 400;
     color: whitesmoke;
+}
+
+@keyframes carousel-animate-vertical {
+  0% {
+    transform: translateY(100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+  3%,
+  11.11% {
+    transform: translateY(100%) scale(0.7);
+    opacity: .4;
+    visibility: visible;
+  }
+  14.11%,
+  22.22% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  25.22%,
+  33.33% {
+    transform: translateY(-100%) scale(0.7);
+    opacity: .4;
+    visibility: visible;
+  }
+  36.33% {
+    transform: translateY(-100%) scale(0.5);
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    transform: translateY(-100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 footer {
@@ -380,7 +414,7 @@ footer {
     }
 
     .carousel-container {
-        height: 400px;
+        height: 100%;
     }
 
     .feature-item {
