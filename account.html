@@ -271,7 +271,7 @@
         const db = getFirestore(app);
         let currentUser = null;
 
-        // Функция переключения форм
+        // Функция переключения  форм
         window.toggleForm = function(formType) {
             document.getElementById('registerForm').classList.add('hidden');
             document.getElementById('loginForm').classList.add('hidden');
@@ -284,7 +284,7 @@
             }
         };
 
-        // Валидация ника (латиница, цифры, _)
+        // Валидация ника
         function validateUsername(username) {
             const regex = /^[a-zA-Z0-9_]+$/;
             const errorEl = document.getElementById('usernameError');
@@ -311,26 +311,24 @@
             if (!validateUsername(username)) return;
 
             try {
-                // Создаем пользователя
+                console.log('Starting registration for:', username, email); // Отладка
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // Отправляем письмо для подтверждения
                 await sendEmailVerification(user);
 
-                // Сохраняем профиль и уникальность ника
+                console.log('Saving user data to Firestore:', user.uid); // Отладка
                 await setDoc(doc(db, 'users', user.uid), { username, email });
                 await setDoc(doc(db, 'usernames', username), { uid: user.uid });
 
                 alert('Регистрация успешна! Проверьте почту для подтверждения.');
                 window.toggleForm('login');
             } catch (error) {
+                console.error('Registration error:', error); // Отладка
                 if (error.code === 'auth/email-already-in-use') {
                     alert('Email уже зарегистрирован');
                 } else if (error.code === 'auth/weak-password') {
                     alert('Пароль должен быть минимум 6 символов');
-                } else if (error.code === 'auth/invalid-api-key') {
-                    alert('Ошибка: Неверный API key. Проверьте конфигурацию Firebase.');
                 } else {
                     alert('Ошибка регистрации: ' + error.message);
                 }
@@ -344,26 +342,28 @@
             const password = document.getElementById('loginPassword').value;
 
             try {
-                // Находим uid по username
+                console.log('Looking up username:', username); // Отладка
                 const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                console.log('Username doc exists:', usernameDoc.exists()); // Отладка
                 if (!usernameDoc.exists()) {
                     alert('Ник не найден');
                     return;
                 }
                 const { uid } = usernameDoc.data();
 
-                // Находим email по uid
+                console.log('Looking up user:', uid); // Отладка
                 const userDoc = await getDoc(doc(db, 'users', uid));
+                console.log('User doc exists:', userDoc.exists()); // Отладка
                 if (!userDoc.exists()) {
                     alert('Ошибка: Пользователь не найден');
                     return;
                 }
                 const { email } = userDoc.data();
 
-                // Пробуем войти
+                console.log('Attempting login with email:', email); // Отладка
                 await signInWithEmailAndPassword(auth, email, password);
-                // onAuthStateChanged проверит emailVerified
             } catch (error) {
+                console.error('Login error:', error); // Отладка
                 if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
                     alert('Неверный ник или пароль');
                 } else {
@@ -372,13 +372,15 @@
             }
         });
 
-        // Повторная отправка письма для подтверждения
+        // Повторная отправка письма
         window.resendVerificationEmail = async function() {
             if (!currentUser) return;
             try {
+                console.log('Resending verification email for:', currentUser.email); // Отладка
                 await sendEmailVerification(currentUser);
                 alert('Ссылка для подтверждения отправлена повторно. Проверьте почту.');
             } catch (error) {
+                console.error('Resend verification error:', error); // Отладка
                 alert('Ошибка отправки письма: ' + error.message);
             }
         };
@@ -386,7 +388,9 @@
         // Показать профиль
         async function showProfile(user) {
             try {
+                console.log('Loading profile for uid:', user.uid); // Отладка
                 const userDoc = await getDoc(doc(db, 'users', user.uid));
+                console.log('User doc exists:', userDoc.exists(), 'Data:', userDoc.data()); // Отладка
                 if (userDoc.exists()) {
                     const data = userDoc.data();
                     document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
@@ -394,29 +398,37 @@
                     document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
                     document.getElementById('profileVerified').textContent = `Email подтверждён: ${user.emailVerified ? 'Да' : 'Нет'}`;
                     document.getElementById('verifyEmailBtn').classList.toggle('hidden', user.emailVerified);
+                } else {
+                    alert('Профиль не найден — попробуйте зарегистрироваться заново');
+                    await signOut(auth);
+                    return;
                 }
                 document.getElementById('userProfile').classList.remove('hidden');
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('registerForm').classList.add('hidden');
             } catch (error) {
-                alert('Ошибка загрузки профиля: ' + error.message);
+                console.error('Profile load error:', error); // Отладка
+                alert('Ошибка чтения профиля: ' + error.message + '. Проверьте Firestore Rules.');
             }
         }
 
         // Выход
         window.logout = async function() {
             try {
+                console.log('Logging out user:', currentUser?.uid); // Отладка
                 await signOut(auth);
                 currentUser = null;
                 document.getElementById('userProfile').classList.add('hidden');
                 document.getElementById('loginForm').classList.remove('hidden');
             } catch (error) {
+                console.error('Logout error:', error); // Отладка
                 alert('Ошибка выхода: ' + error.message);
             }
         };
 
-        // Мониторинг состояния авторизации
+        // Мониторинг авторизации
         onAuthStateChanged(auth, async (user) => {
+            console.log('Auth state changed, user:', user?.uid, 'emailVerified:', user?.emailVerified); // Отладка
             if (user) {
                 currentUser = user;
                 if (!user.emailVerified) {
