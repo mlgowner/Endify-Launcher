@@ -3,146 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет - Endify-Launcher</title>
+    <title>Endify-Launcher</title>
     <link rel="icon" href="images/icon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&family=Work+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .account-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background: linear-gradient(45deg, #000000, #2A3263, #000000);
-            background-size: 200% 200%;
-            animation: gradientShift 10s ease infinite;
-        }
-        .auth-form {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 1rem;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            color: #E7EBE7;
-        }
-        .auth-form h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
-            margin: 0 0 30px;
-            text-align: center;
-            color: #E7EBE7;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #E7EBE7;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .form-group input::placeholder {
-            color: rgba(231, 235, 231, 0.6);
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #746A9F;
-            color: #E7EBE7;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 10px;
-        }
-        .btn:hover {
-            background-color: #5a527b;
-        }
-        .toggle-auth {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        .toggle-auth a {
-            color: #746A9F;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .toggle-auth a:hover {
-            text-decoration: underline;
-        }
-        .user-profile {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 1rem;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            color: #E7EBE7;
-            text-align: center;
-        }
-        .user-profile i {
-            font-size: 64px;
-            color: #746A9F;
-            margin-bottom: 20px;
-        }
-        .user-profile h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            margin: 0 0 20px;
-        }
-        .logout-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #dc3545;
-            color: #E7EBE7;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-        .hidden {
-            display: none;
-        }
-        .error {
-            color: #ff6b6b;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        .success {
-            color: #51cf66;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -156,7 +21,7 @@
                 <summary class="burger"></summary>
                 <div class="nav-center">
                     <ul class="nav-links">
-                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html" class="active">Главная</a></li>
                         <li><a href="download.html">Скачать</a></li>
                         <li><a href="news.html">Новости</a></li>
                         <li><a href="about.html">О нас</a></li>
@@ -167,56 +32,99 @@
         </nav>
     </header>
     <div class="content">
-        <div class="account-container">
-            <!-- Форма регистрации -->
-            <form id="registerForm" class="auth-form hidden">
-                <h2>Регистрация</h2>
-                <div class="form-group">
-                    <label for="regUsername">Ник (только латиница, 3-20 символов):</label>
-                    <input type="text" id="regUsername" placeholder="latin_nick123" required>
-                    <div id="usernameError" class="error hidden"></div>
+        <section class="hero">
+            <h1>ENDIFY-LAUNCHER</h1>
+            <h2>Твой портал в темный мир Minecraft</h2>
+        </section>
+        <section class="features-preview">
+            <div class="carousel-container">
+                <div class="wrapper">
+                    <div class="carousel">
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Кастомизация</p>
+                                <p>Создай уникальный стиль скинов и плащей.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Производительность</p>
+                                <p>Играй плавно даже с сотней модов, наслаждайся стабильностью на любом устройстве.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Быстрый запуск</p>
+                                <p>Запускай игру мгновенно без задержек, экономь время и начинай играть сразу.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Сообщество</p>
+                                <p>Присоединяйся к сообществу игроков, обменивайся опытом и играй вместе.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Безопасность</p>
+                                <p>Защищенные моды и обновления, играй без риска для своего аккаунта.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Модпаки</p>
+                                <p>Устанавливай и обновляй моды в один клик, упрощай процесс настройки игры.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Игровой режим</p>
+                                <p>Наслаждайся новыми игровыми режимами, открывай уникальные приключения.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Облако</p>
+                                <p>Сохраняй прогресс в облаке, доступ к игре с любого устройства.</p>
+                            </div>
+                        </div>
+                        <div class="carousel__item">
+                            <div class="carousel__item-head">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="carousel__item-body">
+                                <p class="title">Поддержка</p>
+                                <p>Получай помощь 24/7 от нашей команды, решай любые вопросы.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="regEmail">Email:</label>
-                    <input type="email" id="regEmail" placeholder="user@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPassword">Пароль (минимум 5 символов):</label>
-                    <input type="password" id="regPassword" placeholder="password123" required>
-                    <div id="passwordError" class="error hidden"></div>
-                </div>
-                <button type="submit" class="btn">Зарегистрироваться</button>
-                <div class="toggle-auth">
-                    Уже есть аккаунт? <a onclick="toggleForm('login')">Войти</a>
-                </div>
-            </form>
-
-            <!-- Форма входа -->
-            <form id="loginForm" class="auth-form">
-                <h2>Вход</h2>
-                <div class="form-group">
-                    <label for="loginEmail">Email:</label>
-                    <input type="email" id="loginEmail" placeholder="user@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Пароль:</label>
-                    <input type="password" id="loginPassword" placeholder="password123" required>
-                </div>
-                <button type="submit" class="btn">Войти</button>
-                <div class="toggle-auth">
-                    Нет аккаунта? <a onclick="toggleForm('register')">Зарегистрироваться</a>
-                </div>
-            </form>
-
-            <!-- Профиль пользователя -->
-            <div id="userProfile" class="user-profile hidden">
-                <i class="fas fa-user-circle"></i>
-                <h2 id="profileName">Добро пожаловать!</h2>
-                <p id="profileEmail"></p>
-                <p id="profileUsername"></p>
-                <button class="logout-btn" onclick="logout()">Выйти</button>
             </div>
-        </div>
+        </section>
     </div>
     <footer>
         <div class="footer-content">
@@ -229,160 +137,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
-        import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-
-        // ТВОЯ CONFIG ИЗ КОНСОЛИ FIREBASE
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let currentUser = null;
-
-        // Функция переключения форм
-        function toggleForm(formType) {
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('userProfile').classList.add('hidden');
-            
-            if (formType === 'register') {
-                document.getElementById('registerForm').classList.remove('hidden');
-            } else if (formType === 'login') {
-                document.getElementById('loginForm').classList.remove('hidden');
-            }
-        }
-
-        // Валидация ника (латиница, цифры, _)
-        function validateUsername(username) {
-            const regex = /^[a-zA-Z0-9_]+$/;
-            const errorEl = document.getElementById('usernameError');
-            if (!regex.test(username)) {
-                errorEl.textContent = 'Ник только на латинице, цифрах и подчеркивании';
-                errorEl.classList.remove('hidden');
-                return false;
-            } else if (username.length < 3 || username.length > 20) {
-                errorEl.textContent = 'Ник от 3 до 20 символов';
-                errorEl.classList.remove('hidden');
-                return false;
-            }
-            errorEl.classList.add('hidden');
-            return true;
-        }
-
-        // Валидация пароля (≥5)
-        function validatePassword(password) {
-            const errorEl = document.getElementById('passwordError');
-            if (password.length < 5) {
-                errorEl.textContent = 'Пароль минимум 5 символов';
-                errorEl.classList.remove('hidden');
-                return false;
-            }
-            errorEl.classList.add('hidden');
-            return true;
-        }
-
-        // Регистрация
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('regUsername').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-
-            if (!validateUsername(username) || !validatePassword(password)) return;
-
-            try {
-                // Создаем пользователя
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // Batch: сохраняем профиль и уникальность ника
-                const userDoc = doc(db, 'users', user.uid);
-                const usernameDoc = doc(db, 'usernames', username);
-
-                await setDoc(userDoc, { username, email });
-                await setDoc(usernameDoc, { uid: user.uid });
-
-                alert('Регистрация успешна! Теперь войдите.');
-                toggleForm('login');
-            } catch (error) {
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('Email уже зарегистрирован');
-                } else if (error.code === 'auth/weak-password') {
-                    alert('Пароль слишком слабый');
-                } else {
-                    alert('Ошибка регистрации: ' + error.message);
-                }
-            }
-        });
-
-        // Вход
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                // onAuthStateChanged сработает автоматически
-            } catch (error) {
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    alert('Неверный email или пароль');
-                } else {
-                    alert('Ошибка входа: ' + error.message);
-                }
-            }
-        });
-
-        // Показать профиль
-        async function showProfile(user) {
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            if (userDoc.exists()) {
-                const data = userDoc.data();
-                document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
-                document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
-                document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
-            }
-            document.getElementById('userProfile').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
-        }
-
-        // Выход
-        async function logout() {
-            await signOut(auth);
-            currentUser = null;
-            document.getElementById('userProfile').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-        }
-
-        // Мониторинг состояния авторизации
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                await showProfile(user);
-            } else {
-                currentUser = null;
-                toggleForm('login');
-            }
-        });
-
-        // Проверка на загрузке
-        if (currentUser) {
-            showProfile(currentUser);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
