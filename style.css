@@ -196,19 +196,11 @@ h2 {
 }
 
 .feature-item {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 1rem;
-    padding: 20px;
-    z-index: 10;
-    color: whitesmoke;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    display: flex;
+    align-items: center;
     position: absolute;
-    width: 240px;
-    text-align: center;
+    width: 100%;
+    padding: 0 12px;
     opacity: 0;
     filter: drop-shadow(0 2px 2px #555);
     will-change: transform, opacity;
@@ -233,26 +225,42 @@ h2 {
 .feature-item:nth-child(6) {
     animation-delay: calc(-36s);
 }
+.feature-item:nth-child(7) {
+    animation-delay: calc(-42s);
+}
+
+.carousel__item-head {
+    border-radius: 50%;
+    background-color: #d7f7fc;
+    width: 90px;
+    height: 90px;
+    padding: 14px;
+    position: relative;
+    margin-right: -45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.carousel__item-body {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px 20px 16px 70px;
+    color: #000;
+}
+
+.title {
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-top: 10px;
+}
 
 .feature-icon {
     font-size: 50px;
-    color: #E7EBE7;
-    margin-bottom: 15px;
-}
-
-.feature-item h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    margin: 10px 0;
-    color: whitesmoke;
-}
-
-.feature-item p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: whitesmoke;
+    color: #2A3263;
 }
 
 @keyframes carousel-animate-vertical {
@@ -262,24 +270,24 @@ h2 {
     visibility: hidden;
   }
   3%,
-  11.11% {
+  14.28% {
     transform: translateY(100%) scale(0.7);
     opacity: .4;
     visibility: visible;
   }
-  14.11%,
-  22.22% {
+  17.28%,
+  28.57% {
     transform: translateY(0) scale(1);
     opacity: 1;
     visibility: visible;
   }
-  25.22%,
-  33.33% {
+  31.57%,
+  42.85% {
     transform: translateY(-100%) scale(0.7);
     opacity: .4;
     visibility: visible;
   }
-  36.33% {
+  45.85% {
     transform: translateY(-100%) scale(0.5);
     opacity: 0;
     visibility: visible;
@@ -296,7 +304,9 @@ footer {
     color: #E7EBE7;
     z-index: 100;
     font-family: 'Open Sans', sans-serif;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-content {
