@@ -58,7 +58,7 @@ nav {
 @keyframes colorChange {
     0% { color: #E7EBE7; }
     50% { color: #2A3263; }
-    100% { color: #E7EBE7;Find new: true
+    100% { color: #E7EBE7; }
 }
 
 .nav-links {
@@ -286,12 +286,12 @@ h2 {
 
 @keyframes carousel-animate-vertical {
     0% {
-        transform: translateY(100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(500px) translateY(100%) scale(0.5); /* Компенсация margin-left: -500px */
         opacity: 0;
         visibility: hidden;
     }
     3%, 11.11% {
-        transform: translateY(100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+        transform: translateX(500px) translateY(100%) scale(0.7); /* Компенсация margin-left: -500px */
         opacity: 0.4;
         visibility: visible;
     }
@@ -301,17 +301,17 @@ h2 {
         visibility: visible;
     }
     25.22%, 33.33% {
-        transform: translateY(-100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+        transform: translateX(500px) translateY(-100%) scale(0.7); /* Компенсация margin-left: -500px */
         opacity: 0.4;
         visibility: visible;
     }
     36.33% {
-        transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(500px) translateY(-100%) scale(0.5); /* Компенсация margin-left: -500px */
         opacity: 0;
         visibility: visible;
     }
     100% {
-        transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+        transform: translateX(500px) translateY(-100%) scale(0.5); /* Компенсация margin-left: -500px */
         opacity: 0;
         visibility: hidden;
     }
@@ -465,12 +465,12 @@ footer {
 
     @keyframes carousel-animate-vertical {
         0% {
-            transform: translateY(100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(100px) translateY(100%) scale(0.5); /* Компенсация margin-left: -100px */
             opacity: 0;
             visibility: hidden;
         }
         3%, 11.11% {
-            transform: translateY(100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+            transform: translateX(100px) translateY(100%) scale(0.7); /* Компенсация margin-left: -100px */
             opacity: 0.4;
             visibility: visible;
         }
@@ -480,17 +480,17 @@ footer {
             visibility: visible;
         }
         25.22%, 33.33% {
-            transform: translateY(-100%) scale(0.7); /* Убрано translateX для неактивных блоков */
+            transform: translateX(100px) translateY(-100%) scale(0.7); /* Компенсация margin-left: -100px */
             opacity: 0.4;
             visibility: visible;
         }
         36.33% {
-            transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(100px) translateY(-100%) scale(0.5); /* Компенсация margin-left: -100px */
             opacity: 0;
             visibility: visible;
         }
         100% {
-            transform: translateY(-100%) scale(0.5); /* Убрано translateX для неактивных блоков */
+            transform: translateX(100px) translateY(-100%) scale(0.5); /* Компенсация margin-left: -100px */
             opacity: 0;
             visibility: hidden;
         }
