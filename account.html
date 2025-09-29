@@ -317,9 +317,13 @@
 
                 await sendEmailVerification(user);
 
-                console.log('Saving user data to Firestore, uid:', user.uid);
+                console.log('Saving user data to users collection, uid:', user.uid);
                 await setDoc(doc(db, 'users', user.uid), { username, email });
+                console.log('User data saved successfully');
+
+                console.log('Saving username to usernames collection:', username);
                 await setDoc(doc(db, 'usernames', username), { uid: user.uid });
+                console.log('Username data saved successfully');
 
                 alert('Регистрация успешна! Проверьте почту для подтверждения.');
                 window.toggleForm('login');
