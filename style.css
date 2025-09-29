@@ -176,12 +176,15 @@ h2 {
 }
 
 .features-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 40px 20px;
-    text-align: center;
 }
 
 .carousel-container {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -190,7 +193,6 @@ h2 {
 }
 
 .wrapper {
-    background: linear-gradient(60deg, #420285, #08BDBD);
     height: 100%;
     width: 100%;
     display: flex;
@@ -435,7 +437,7 @@ footer {
     }
 
     .carousel-container {
-        height: 100vh;
+        height: 100%;
     }
 
     .footer-content {
