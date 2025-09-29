@@ -13,8 +13,14 @@ html, body {
     box-sizing: border-box;
 }
 
+:root {
+    --primColor: #2A3263;
+    --secoColor: #E7EBE7;
+    --cornerRad: 4px;
+}
+
 header {
-    background-color: #2A3263;
+    background-color: var(--primColor);
     padding: 20px 40px;
     z-index: 100;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -32,18 +38,10 @@ nav {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 600;
-    color: #E7EBE7;
+    color: var(--secoColor);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-left: 0;
-}
-
-.nav-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
 }
 
 .nav-right {
@@ -56,32 +54,121 @@ nav {
 }
 
 @keyframes colorChange {
-    0% { color: #E7EBE7; }
-    50% { color: #2A3263; }
-    100% { color: #E7EBE7; }
+    0% { color: var(--secoColor); }
+    50% { color: var(--primColor); }
+    100% { color: var(--secoColor); }
+}
+
+.nav-right a {
+    color: var(--secoColor);
+    text-decoration: none;
+}
+
+.nav-right i {
+    font-size: 24px;
+    color: var(--secoColor);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-right i:hover {
+    color: #746A9F;
+    transform: scale(1.2);
+}
+
+.burger-menu {
+    margin: 0;
+}
+
+.burger {
+    writing-mode: vertical-lr;
+    text-align: center;
+    padding: 12px 10px;
+    width: 23px;
+    height: 17px;
+    background-color: var(--primColor);
+    border: 2px solid var(--secoColor);
+    border-radius: var(--cornerRad);
+    color: var(--secoColor);
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    transition: transform 200ms ease-in-out 0s;
+}
+
+.burger::before,
+.burger::after {
+    position: static;
+    top: 0;
+    left: 0;
+}
+
+.burger::before {
+    content: "";
+}
+
+.burger::after {
+    content: "☰";
+    letter-spacing: -1px;
+}
+
+.burger:hover {
+    transform: scale(1.1);
+}
+
+.burger::-webkit-details-marker {
+    display: none;
+}
+
+details[open] .nav-center {
+    animation: menuAnim 300ms ease-in-out forwards;
+}
+
+details[open] .burger::before {
+    content: "X";
+}
+
+details[open] .burger::after {
+    content: "";
+}
+
+.nav-center {
+    height: 0;
+    width: fit-content;
+    border-radius: var(--cornerRad);
+    background-color: var(--primColor);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    animation: closeMenu 300ms ease-in-out forwards;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 25px;
+    flex-direction: column;
+    gap: 10px;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     align-items: center;
 }
 
 .nav-links li a {
-    color: #E7EBE7;
+    color: var(--secoColor);
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-size: 19px;
     font-weight: 600;
     text-transform: uppercase;
-    position: relative;
-    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 12px 24px;
+    text-align: center;
+    transition: filter 200ms linear 0s, color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-links li a:hover {
+    filter: brightness(200%);
     color: #746A9F;
     transform: scale(1.1);
 }
@@ -105,32 +192,44 @@ nav {
     }
 }
 
-.nav-right a {
-    color: #E7EBE7;
-    text-decoration: none;
+details::before {
+    content: "← Click to open menu";
+    color: var(--secoColor);
+    position: absolute;
+    margin-left: 40px;
+    padding: 10px;
+    opacity: 0.4;
 }
 
-.nav-right i {
-    font-size: 24px;
-    color: #E7EBE7;
-    transition: color 0.3s ease, transform 0.3s ease;
+details[open]::before {
+    animation: fadeMe 300ms linear forwards;
 }
 
-.nav-right i:hover {
-    color: #746A9F;
-    transform: scale(1.2);
+@keyframes menuAnim {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 260px;
+    }
 }
 
-.burger {
-    display: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: #E7EBE7;
-    transition: color 0.3s ease;
+@keyframes closeMenu {
+    0% {
+        height: 260px;
+    }
+    100% {
+        height: 0;
+    }
 }
 
-.burger:hover {
-    color: #746A9F;
+@keyframes fadeMe {
+    0% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .content {
@@ -161,7 +260,7 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 52px;
     font-weight: 600;
-    margin: 50px 0 30px; /* Сохранено изменение для h1 */
+    margin: 50px 0 30px;
     color: #E7EBE7;
     text-shadow: 0 0 10px rgba(42, 50, 99, 0.7);
 }
@@ -170,7 +269,7 @@ h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     font-weight: 600;
-    margin: 0 0 40px; /* Сохранено изменение для h2 */
+    margin: 0 0 40px;
     color: #E7EBE7;
     line-height: 1.6;
 }
@@ -207,8 +306,8 @@ h2 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-left: -580px; /* Изменено с -500px на -580px */
-    margin-bottom: 150px; /* Сдвиг карусели вверх */
+    margin-left: -580px;
+    margin-bottom: 150px;
 }
 
 .carousel__item {
@@ -254,36 +353,36 @@ h2 {
 
 .carousel__item-head {
     border-radius: 50%;
-    background-color: #2A3263; /* Цвет кружка */
+    background-color: #2A3263;
     width: 90px;
     height: 90px;
     padding: 14px;
     position: relative;
-    margin-right: -45px; /* Иконка наезжает на блок */
+    margin-right: -45px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 50px;
-    z-index: 11; /* Кружок поверх карточки */
+    z-index: 11;
 }
 
 .carousel__item-body {
-    min-width: 500px; /* Изменено с 450px на 500px */
-    height: 150px; /* Изменено с 165px на 150px */
-    background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
-    backdrop-filter: blur(18px); /* Размытие фона */
-    -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
-    border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
-    border-radius: 1rem; /* Скругление углов */
-    padding: 16px 20px 5px 70px; /* Сохранен текущий padding */
+    min-width: 500px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 1rem;
+    padding: 16px 20px 5px 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: left; /* Текст и заголовок прижаты влево */
-    color: #E7EBE7; /* Цвет текста */
-    z-index: 10; /* Для стеклянного эффекта */
+    text-align: left;
+    color: #E7EBE7;
+    z-index: 10;
 }
 
 .title {
@@ -294,42 +393,42 @@ h2 {
 
 @keyframes carousel-animate-vertical {
     0% {
-        transform: translateX(95px) translateY(100%) scale(0.5); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(100%) scale(0.5);
         opacity: 0;
         visibility: hidden;
     }
     1% {
-        transform: translateX(95px) translateY(100%) scale(0.6); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(100%) scale(0.6);
         opacity: 0.2;
         visibility: visible;
     }
     3%, 11.11% {
-        transform: translateX(95px) translateY(100%) scale(0.7); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(100%) scale(0.7);
         opacity: 0.4;
         visibility: visible;
     }
     14.11%, 22.22% {
-        transform: translateX(0) translateY(0) scale(1); /* Активный блок следует margin-left: -580px */
+        transform: translateX(0) translateY(0) scale(1);
         opacity: 1;
         visibility: visible;
     }
     25.22%, 33.33% {
-        transform: translateX(95px) translateY(-100%) scale(0.7); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(-100%) scale(0.7);
         opacity: 0.4;
         visibility: visible;
     }
     34.33% {
-        transform: translateX(95px) translateY(-100%) scale(0.6); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(-100%) scale(0.6);
         opacity: 0.2;
         visibility: visible;
     }
     36.33% {
-        transform: translateX(95px) translateY(-100%) scale(0.5); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(-100%) scale(0.5);
         opacity: 0;
         visibility: visible;
     }
     100% {
-        transform: translateX(95px) translateY(-100%) scale(0.5); /* Изменено с 85px на 95px */
+        transform: translateX(95px) translateY(-100%) scale(0.5);
         opacity: 0;
         visibility: hidden;
     }
@@ -411,128 +510,74 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .nav-center, .nav-right {
-        display: none;
-    }
-
-    .nav-center.active, .nav-right.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: #2A3263;
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .nav-links li a,
-    .nav-right a,
-    .nav-right i {
-        padding: 10px 20px;
-        font-size: 18px;
-    }
-
-    .nav-right {
-        gap: 10px;
-        align-items: center;
-    }
-
-    .nav-right i {
-        margin: 10px auto;
-    }
-
-    .burger {
-        display: block;
-    }
-
-    h1 {
-        font-size: 36px;
-        margin: 50px 0 30px; /* Сохранено изменение для h1 */
-    }
-
-    h2 {
-        font-size: 28px;
-        margin: 0 0 40px; /* Сохранено изменение для h2 */
-    }
-
-    .hero {
-        padding: 30px 20px;
-    }
-
-    .carousel-container {
-        height: 100%;
-    }
-
     .carousel {
-        margin-left: -100px; /* Сохранен меньший сдвиг влево для мобильных */
-        margin-bottom: 50px; /* Сохранен меньший сдвиг вверх для мобильных */
+        margin-left: -100px;
+        margin-bottom: 50px;
     }
 
     .carousel__item-body {
-        min-width: 100%; /* Сохранена адаптивная ширина для мобильных */
-        height: 150px; /* Изменено с 165px на 150px */
-        background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
-        backdrop-filter: blur(18px); /* Размытие фона */
-        -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
-        border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
-        border-radius: 1rem; /* Скругление углов */
-        padding: 16px 15px 5px 70px; /* Сохранен padding с измененным нижним отступом */
-        color: #E7EBE7; /* Цвет текста */
-        z-index: 10; /* Для стеклянного эффекта */
-        text-align: left; /* Текст и заголовок прижаты влево */
+        min-width: 100%;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 1rem;
+        padding: 16px 15px 5px 70px;
+        color: #E7EBE7;
+        z-index: 10;
+        text-align: left;
     }
 
     .carousel__item-head {
-        margin-right: -45px; /* Сохранен наезд иконки */
-        background-color: #2A3263; /* Цвет кружка */
-        z-index: 11; /* Кружок поверх карточки */
+        margin-right: -45px;
+        background-color: #2A3263;
+        z-index: 11;
     }
 
     .carousel__item {
-        max-width: 100%; /* Адаптивная ширина для мобильных */
+        max-width: 100%;
     }
 
     @keyframes carousel-animate-vertical {
         0% {
-            transform: translateX(34px) translateY(100%) scale(0.5); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(100%) scale(0.5);
             opacity: 0;
             visibility: hidden;
         }
         1% {
-            transform: translateX(34px) translateY(100%) scale(0.6); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(100%) scale(0.6);
             opacity: 0.2;
             visibility: visible;
         }
         3%, 11.11% {
-            transform: translateX(34px) translateY(100%) scale(0.7); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
         14.11%, 22.22% {
-            transform: translateX(0) translateY(0) scale(1); /* Активный блок следует margin-left: -100px */
+            transform: translateX(0) translateY(0) scale(1);
             opacity: 1;
             visibility: visible;
         }
         25.22%, 33.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.7); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(-100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
         34.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.6); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(-100%) scale(0.6);
             opacity: 0.2;
             visibility: visible;
         }
         36.33% {
-            transform: translateX(34px) translateY(-100%) scale(0.5); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(-100%) scale(0.5);
             opacity: 0;
             visibility: visible;
         }
         100% {
-            transform: translateX(34px) translateY(-100%) scale(0.5); /* Сохранено для мобильных */
+            transform: translateX(34px) translateY(-100%) scale(0.5);
             opacity: 0;
             visibility: hidden;
         }
@@ -546,25 +591,25 @@ footer {
 
     h1 {
         font-size: 28px;
-        margin: 50px 0 30px; /* Сохранено изменение для h1 */
+        margin: 50px 0 30px;
     }
 
     h2 {
         font-size: 24px;
-        margin: 0 0 40px; /* Сохранено изменение для h2 */
+        margin: 0 0 40px;
     }
 
     .carousel__item-body {
-        height: 150px; /* Изменено с 165px на 150px */
-        padding: 16px 10px 5px 70px; /* Сохранен padding с измененным нижним отступом */
-        background: rgba(255, 255, 255, 0.15); /* Стеклянный фон */
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Тень для стеклянного эффекта */
-        backdrop-filter: blur(18px); /* Размытие фона */
-        -webkit-backdrop-filter: blur(18px); /* Поддержка для WebKit */
-        border: 1px solid rgba(255, 255, 255, 0.18); /* Прозрачная граница */
-        border-radius: 1rem; /* Скругление углов */
-        color: #E7EBE7; /* Цвет текста */
-        z-index: 10; /* Для стеклянного эффекта */
-        text-align: left; /* Текст и заголовок прижаты влево */
+        height: 150px;
+        padding: 16px 10px 5px 70px;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 1rem;
+        color: #E7EBE7;
+        z-index: 10;
+        text-align: left;
     }
 }
