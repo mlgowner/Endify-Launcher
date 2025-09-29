@@ -49,6 +49,7 @@ nav {
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-left: auto;
 }
 
 .nav-right a {
@@ -68,15 +69,15 @@ nav {
 }
 
 .burger-menu {
-    margin-left: auto;
+    margin-left: 20px;
 }
 
 .burger {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background-color: var(--primColor);
     border: 2px solid var(--secoColor);
     border-radius: var(--cornerRad);
@@ -102,6 +103,7 @@ nav {
 .burger::after {
     content: "☰";
     font-size: 20px;
+    margin-top: -3px;
 }
 
 .burger:hover {
@@ -130,7 +132,7 @@ details[open] .burger::after {
 
 .nav-center {
     height: 0;
-    width: fit-content;
+    width: 200px;
     border-radius: var(--cornerRad);
     background-color: var(--primColor);
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
@@ -142,15 +144,14 @@ details[open] .burger::after {
     animation: closeMenu 300ms ease-in-out forwards;
     position: absolute;
     top: 70px;
-    left: 0;
-    right: 0;
+    right: 40px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin: 0;
     padding: 10px;
     align-items: center;
