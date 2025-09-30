@@ -387,20 +387,22 @@
                 }
                 const { uid } = usernameDoc.data();
 
-                console.log('Looking up user email, path: users/', uid);
-                const userDoc = await getDoc(doc(db, 'users', uid));
-                console.log('User doc exists:', userDoc.exists(), 'Data:', userDoc.data());
-                if (!userDoc.exists()) {
+                // Проверяем пароль перед чтением users/{uid}
+                console.log('Attempting login with username:', username);
+                const tempUserDoc = await getDoc(doc(db, 'users', uid));
+                console.log('Temp user doc exists:', tempUserDoc.exists(), 'Data:', tempUserDoc.data());
+                if (!tempUserDoc.exists()) {
                     alert('Ошибка: Пользователь не найден');
                     return;
                 }
-                const { email } = userDoc.data();
+                const { email } = tempUserDoc.data();
 
                 console.log('Attempting login with email:', email);
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 console.log('Login successful, uid:', userCredential.user.uid);
 
                 // Проверяем данные пользователя после входа
+                console.log('Verifying user data after login, path: users/', userCredential.user.uid);
                 const authenticatedUserDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
                 console.log('Authenticated user doc exists:', authenticatedUserDoc.exists(), 'Data:', authenticatedUserDoc.data());
                 if (!authenticatedUserDoc.exists()) {
