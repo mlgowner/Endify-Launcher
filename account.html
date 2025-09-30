@@ -287,6 +287,7 @@
 
         // Кастомный алерт
         function showCustomAlert(message, callback) {
+            console.log('Showing custom alert:', message);
             const alertBox = document.createElement('div');
             alertBox.className = 'custom-alert';
             alertBox.innerHTML = `
@@ -363,7 +364,7 @@
 
         // Показ сообщения в форме
         function showFormMessage(formId, message, isSuccess) {
-            const messageEl = document.getElementById(formId === 'registerForm' ? 'registerMessage' : 'loginMessage');
+            const messageEl = document.getElementById(formId === 'registerForm' ? 'registerMessage' : formId === 'loginForm' ? 'loginMessage' : 'profileMessage');
             messageEl.textContent = message;
             messageEl.classList.remove('hidden', 'error', 'success');
             messageEl.classList.add(isSuccess ? 'success' : 'error');
@@ -412,6 +413,7 @@
         // Регистрация
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('Register form submitted');
             const username = document.getElementById('regUsername').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
@@ -482,6 +484,7 @@
         // Вход по username
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('Login form submitted');
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
 
@@ -523,6 +526,7 @@
 
         // Сброс пароля
         window.resetPassword = async function() {
+            console.log('Reset password clicked');
             const username = document.getElementById('loginUsername').value.trim();
             if (!username) {
                 showFormMessage('loginForm', 'Введите ник для сброса пароля', false);
@@ -538,9 +542,7 @@
                 }
                 const { email } = usernameDoc.data();
                 console.log('Sending password reset email to:', email);
-                await sendPasswordResetEmail(auth, email, {
-                    url: 'https://mlgowner.github.io/Endify-Launcher/account.html'
-                });
+                await sendPasswordResetEmail(auth, email);
                 console.log('Password reset email sent successfully');
                 showFormMessage('loginForm', 'Письмо для сброса пароля отправлено. Проверьте почту.', true);
             } catch (error) {
@@ -592,7 +594,7 @@
                 document.getElementById('userProfile').classList.remove('hidden');
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('registerForm').classList.add('hidden');
-            }raje
+            } catch (error) {
                 console.error('Profile load error:', error, 'Code:', error.code, 'Message:', error.message);
                 showFormMessage('userProfile', 'Ошибка чтения профиля: ' + error.message, false);
             }
