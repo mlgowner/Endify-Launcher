@@ -347,7 +347,7 @@
 
                 try {
                     console.log('Attempting to save username to usernames collection, path: usernames/', username);
-                    await setDoc(doc(db, 'usernames', username), { uid: user.uid });
+                    await setDoc(doc(db, 'usernames', username), { uid: user.uid, email });
                     console.log('Username data saved successfully to usernames/', username);
                 } catch (error) {
                     console.error('Error saving username data:', error);
@@ -385,17 +385,7 @@
                     alert('Ник не найден');
                     return;
                 }
-                const { uid } = usernameDoc.data();
-
-                // Проверяем пароль перед чтением users/{uid}
-                console.log('Attempting login with username:', username);
-                const tempUserDoc = await getDoc(doc(db, 'users', uid));
-                console.log('Temp user doc exists:', tempUserDoc.exists(), 'Data:', tempUserDoc.data());
-                if (!tempUserDoc.exists()) {
-                    alert('Ошибка: Пользователь не найден');
-                    return;
-                }
-                const { email } = tempUserDoc.data();
+                const { uid, email } = usernameDoc.data();
 
                 console.log('Attempting login with email:', email);
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
