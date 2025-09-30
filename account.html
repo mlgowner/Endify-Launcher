@@ -306,6 +306,25 @@
         console.log('Persistence set to local');
         let currentUser = null;
 
+        // Кастомный алерт
+        function showCustomAlert(message, callback) {
+            const alertBox = document.createElement('div');
+            alertBox.className = 'custom-alert';
+            alertBox.innerHTML = `
+                <div class="alert-content">
+                    <p>${message}</p>
+                    <button class="alert-btn">OK</button>
+                </div>
+            `;
+            document.body.appendChild(alertBox);
+
+            const alertBtn = alertBox.querySelector('.alert-btn');
+            alertBtn.addEventListener('click', () => {
+                alertBox.remove();
+                if (callback) callback();
+            });
+        }
+
         // Функция переключения форм
         window.toggleForm = function(formType) {
             console.log('Toggling form to:', formType);
@@ -372,7 +391,7 @@
             console.log('Showing message for', formId, ':', message, 'Success:', isSuccess);
         }
 
-        // Обработка oobCode для верификации email
+        // Обработка oobCode для верификации email и сброса пароля
         const urlParams = new URLSearchParams(window.location.search);
         const oobCode = urlParams.get('oobCode');
         const mode = urlParams.get('mode');
@@ -382,13 +401,16 @@
                 console.log('Applying email verification code:', oobCode);
                 await applyActionCode(auth, oobCode);
                 console.log('Email verification successful');
-                showFormMessage('loginForm', '✅ Email успешно подтверждён! Войдите в аккаунт.', true);
+                showFormMessage('loginForm', 'Email успешно подтверждён! Войдите в аккаунт.', true);
                 window.toggleForm('login');
             } catch (error) {
                 console.error('Email verification error:', error, 'Code:', error.code, 'Message:', error.message);
                 showFormMessage('loginForm', 'Ошибка верификации email: ' + error.message, false);
                 window.toggleForm('login');
             }
+        } else if (oobCode && mode === 'resetPassword') {
+            console.log('Redirecting to reset-password.html for mode=resetPassword');
+            window.location.href = `https://mlgowner.github.io/Endify-Launcher/reset-password.html?mode=resetPassword&oobCode=${oobCode}`;
         }
 
         // Регистрация
@@ -442,12 +464,11 @@
                     throw new Error('Failed to save username data: ' + error.message);
                 }
 
-                showFormMessage('registerForm', '✅ Регистрация успешна! Подтвердите почту для входа в аккаунт.', true);
-                await signOut(auth);
-                setTimeout(() => {
+                showCustomAlert('Регистрация успешна! Подтвердите почту для входа в аккаунт.', () => {
                     window.toggleForm('login');
                     document.getElementById('registerForm').reset();
-                }, 4000); // Задержка 4 секунды
+                });
+                await signOut(auth);
             } catch (error) {
                 console.error('Registration error:', error, 'Code:', error.code, 'Message:', error.message);
                 if (error.code === 'auth/email-already-in-use') {
@@ -522,7 +543,7 @@
                 const { email } = usernameDoc.data();
                 console.log('Sending password reset email to:', email);
                 await sendPasswordResetEmail(auth, email, {
-                    url: 'https://mlgowner.github.io/Endify-Launcher/reset-password.html'
+                    url: 'https://mlgowner.github.io/Endify-Launcher/account.html'
                 });
                 console.log('Password reset email sent successfully');
                 showFormMessage('loginForm', 'Письмо для сброса пароля отправлено. Проверьте почту.', true);
