@@ -249,7 +249,7 @@
     </footer>
 
     <!-- Firebase SDK -->
-    <script type="module">
+   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
@@ -336,25 +336,27 @@
                 await sendEmailVerification(user);
                 console.log('Verification email sent successfully');
 
-                // Ожидаем обновления состояния аутентификации
-                await new Promise((resolve, reject) => {
-                    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-                        if (authUser && authUser.uid === user.uid) {
-                            unsubscribe();
-                            resolve(authUser);
-                        }
-                    }, reject);
-                });
+                // Сохраняем данные пользователя
+                try {
+                    console.log('Attempting to save user data to users collection, path: users/', user.uid);
+                    await setDoc(doc(db, 'users', user.uid), { username, email });
+                    console.log('User data saved successfully to users/', user.uid);
+                } catch (error) {
+                    console.error('Error saving user data:', error);
+                    throw new Error('Failed to save user data: ' + error.message);
+                }
 
-                console.log('Attempting to save user data to users collection, path: users/', user.uid);
-                await setDoc(doc(db, 'users', user.uid), { username, email });
-                console.log('User data saved successfully to users/', user.uid);
-
-                console.log('Attempting to save username to usernames collection, path: usernames/', username);
-                await setDoc(doc(db, 'usernames', username), { uid: user.uid });
-                console.log('Username data saved successfully to usernames/', username);
+                try {
+                    console.log('Attempting to save username to usernames collection, path: usernames/', username);
+                    await setDoc(doc(db, 'usernames', username), { uid: user.uid });
+                    console.log('Username data saved successfully to usernames/', username);
+                } catch (error) {
+                    console.error('Error saving username data:', error);
+                    throw new Error('Failed to save username data: ' + error.message);
+                }
 
                 alert('Регистрация успешна! Проверьте почту для подтверждения.');
+                await signOut(auth); // Выходим после успешной регистрации
                 window.toggleForm('login');
             } catch (error) {
                 console.error('Registration error:', error, 'Code:', error.code, 'Message:', error.message);
@@ -466,6 +468,11 @@
             console.log('Auth state changed, user:', user?.uid, 'emailVerified:', user?.emailVerified);
             if (user) {
                 currentUser = user;
+                // Проверяем верификацию только для входа, не для регистрации
+                if (!user.emailVerified && !document.getElementById('registerForm').classList.contains('hidden')) {
+                    console.log('Skipping email verification check during registration');
+                    return;
+                }
                 if (!user.emailVerified) {
                     alert('Подтвердите почту для входа в аккаунт');
                     await signOut(auth);
