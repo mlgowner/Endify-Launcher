@@ -319,6 +319,14 @@
                 }
 
                 try {
+                    console.log('Checking username availability:', username);
+                    const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                    if (usernameDoc.exists()) {
+                        console.log('Username already taken:', username);
+                        alert('Этот ник уже занят');
+                        return;
+                    }
+
                     console.log('Starting registration for:', { username, email });
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     const user = userCredential.user;
