@@ -333,12 +333,15 @@
                     console.log('User created, uid:', user.uid, 'emailVerified:', user.emailVerified);
 
                     console.log('Checking auth token for user:', user.uid);
-                    const token = await user.getIdToken();
+                    const token = await user.getIdToken(true);
                     console.log('Auth token received:', !!token);
 
                     console.log('Sending verification email to:', email);
                     await sendEmailVerification(user);
                     console.log('Verification email sent successfully');
+
+                    console.log('Waiting for auth token sync...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
 
                     console.log('Attempting to save user data to users collection, path: users/', user.uid);
                     await setDoc(doc(db, 'users', user.uid), { username: username, email: email });
