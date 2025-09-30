@@ -94,6 +94,18 @@
         .verify-btn:hover {
             background-color: #37b24d;
         }
+        .reset-password-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #746A9F;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .reset-password-link:hover {
+            text-decoration: underline;
+        }
         .toggle-auth {
             text-align: center;
             margin-top: 20px;
@@ -158,6 +170,18 @@
             font-size: 14px;
             margin-top: 5px;
         }
+        .form-message {
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-message.error {
+            color: #ff6b6b;
+        }
+        .form-message.success {
+            color: #51cf66;
+        }
     </style>
 </head>
 <body>
@@ -195,13 +219,15 @@
                 <div class="form-group">
                     <label for="regEmail">Email:</label>
                     <input type="email" id="regEmail" placeholder="user@example.com" required>
+                    <div id="emailError" class="error hidden"></div>
                 </div>
                 <div class="form-group">
-                    <label for="regPassword">Пароль (минимум 6 символов):</label>
+                    <label for="regPassword">Пароль (8+ символов, буквы и цифры):</label>
                     <input type="password" id="regPassword" placeholder="password123" required>
                     <div id="passwordError" class="error hidden"></div>
                 </div>
                 <button type="submit" class="btn">Зарегистрироваться</button>
+                <div id="registerMessage" class="form-message hidden"></div>
                 <div class="toggle-auth">
                     Уже есть аккаунт? <a onclick="toggleForm('login')">Войти</a>
                 </div>
@@ -219,6 +245,8 @@
                     <input type="password" id="loginPassword" placeholder="password123" required>
                 </div>
                 <button type="submit" class="btn">Войти</button>
+                <a href="#" class="reset-password-link" onclick="resetPassword()">Забыли пароль?</a>
+                <div id="loginMessage" class="form-message hidden"></div>
                 <div class="toggle-auth">
                     Нет аккаунта? <a onclick="toggleForm('register')">Зарегистрироваться</a>
                 </div>
@@ -249,252 +277,317 @@
     </footer>
 
     <!-- Firebase SDK -->
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-    // Firebase Config
-    const firebaseConfig = {
-        apiKey: "AIzaSyAZVr6qcaglTJgqeLhJdv0uWJPt2WZ41Gs",
-        authDomain: "endify-launcher-7cf70.firebaseapp.com",
-        projectId: "endify-launcher-7cf70",
-        storageBucket: "endify-launcher-7cf70.firebasestorage.app",
-        messagingSenderId: "314989144845",
-        appId: "1:314989144845:web:a0fc28a7997b905d2d9e44",
-        measurementId: "G-X7J63FTHKS"
-    };
-
-    // Инициализация Firebase
-    try {
-        console.log('Initializing Firebase with config:', firebaseConfig);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        console.log('Firebase initialized successfully, Firestore:', db);
-        let currentUser = null;
-
-        // Функция переключения форм
-        window.toggleForm = function(formType) {
-            console.log('Toggling form to:', formType);
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('userProfile').classList.add('hidden');
-            
-            if (formType === 'register') {
-                document.getElementById('registerForm').classList.remove('hidden');
-            } else if (formType === 'login') {
-                document.getElementById('loginForm').classList.remove('hidden');
-            }
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZVr6qcaglTJgqeLhJdv0uWJPt2WZ41Gs",
+            authDomain: "endify-launcher-7cf70.firebaseapp.com",
+            projectId: "endify-launcher-7cf70",
+            storageBucket: "endify-launcher-7cf70.firebasestorage.app",
+            messagingSenderId: "314989144845",
+            appId: "1:314989144845:web:a0fc28a7997b905d2d9e44",
+            measurementId: "G-X7J63FTHKS"
         };
 
-        // Валидация ника
-        function validateUsername(username) {
-            console.log('Validating username:', username);
-            const regex = /^[a-zA-Z0-9_]+$/;
-            const errorEl = document.getElementById('usernameError');
-            if (!regex.test(username)) {
-                errorEl.textContent = 'Ник только на латинице, цифрах и подчеркивании';
-                errorEl.classList.remove('hidden');
-                return false;
-            } else if (username.length < 3 || username.length > 20) {
-                errorEl.textContent = 'Ник от 3 до 20 символов';
-                errorEl.classList.remove('hidden');
-                return false;
-            }
-            errorEl.classList.add('hidden');
-            return true;
-        }
+        // Инициализация Firebase
+        try {
+            console.log('Initializing Firebase with config:', firebaseConfig);
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+            console.log('Firebase initialized successfully, Firestore:', db);
+            let currentUser = null;
 
-        // Регистрация
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('regUsername').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-
-            if (!validateUsername(username)) {
-                console.log('Username validation failed');
-                return;
-            }
-
-            try {
-                console.log('Checking username availability:', username);
-                const usernameDoc = await getDoc(doc(db, 'usernames', username));
-                if (usernameDoc.exists()) {
-                    console.log('Username already taken:', username);
-                    alert('Этот ник уже занят');
-                    return;
-                }
-
-                console.log('Starting registration for:', { username, email });
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                console.log('User created, uid:', user.uid, 'emailVerified:', user.emailVerified);
-
-                console.log('Sending verification email to:', email);
-                await sendEmailVerification(user);
-                console.log('Verification email sent successfully');
-
-                try {
-                    console.log('Attempting to save user data to users collection, path: users/', user.uid);
-                    await setDoc(doc(db, 'users', user.uid), { username, email });
-                    console.log('User data saved successfully to users/', user.uid);
-                } catch (error) {
-                    console.error('Error saving user data:', error);
-                    throw new Error('Failed to save user data: ' + error.message);
-                }
-
-                try {
-                    console.log('Attempting to save username to usernames collection, path: usernames/', username);
-                    await setDoc(doc(db, 'usernames', username), { uid: user.uid, email });
-                    console.log('Username data saved successfully to usernames/', username);
-                } catch (error) {
-                    console.error('Error saving username data:', error);
-                    throw new Error('Failed to save username data: ' + error.message);
-                }
-
-                alert('Регистрация успешна! Проверьте почту для подтверждения.');
-                await signOut(auth);
-                window.toggleForm('login');
-            } catch (error) {
-                console.error('Registration error:', error, 'Code:', error.code, 'Message:', error.message);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('Email уже зарегистрирован');
-                } else if (error.code === 'auth/weak-password') {
-                    alert('Пароль должен быть минимум 6 символов');
-                } else if (error.code === 'permission-denied') {
-                    alert('Ошибка прав доступа. Попробуйте снова или обратитесь в поддержку.');
-                } else {
-                    alert('Ошибка регистрации: ' + error.message);
-                }
-            }
-        });
-
-        // Вход по username
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                console.log('Looking up username, path: usernames/', username);
-                const usernameDoc = await getDoc(doc(db, 'usernames', username));
-                console.log('Username doc exists:', usernameDoc.exists(), 'Data:', usernameDoc.data());
-                if (!usernameDoc.exists()) {
-                    alert('Ник не найден');
-                    return;
-                }
-                const { uid, email } = usernameDoc.data();
-
-                console.log('Attempting login with email:', email);
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log('Login successful, uid:', userCredential.user.uid);
-
-                // Проверяем данные пользователя после входа
-                console.log('Verifying user data after login, path: users/', userCredential.user.uid);
-                const authenticatedUserDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
-                console.log('Authenticated user doc exists:', authenticatedUserDoc.exists(), 'Data:', authenticatedUserDoc.data());
-                if (!authenticatedUserDoc.exists()) {
-                    alert('Ошибка: Профиль пользователя не найден после входа');
-                    await signOut(auth);
-                    return;
-                }
-            } catch (error) {
-                console.error('Login error:', error, 'Code:', error.code, 'Message:', error.message);
-                if (error.code === 'auth/wrong-password') {
-                    alert('Неверный пароль');
-                } else if (error.code === 'auth/user-not-found') {
-                    alert('Пользователь не найден');
-                } else if (error.code === 'permission-denied') {
-                    alert('Ошибка прав доступа при входе. Попробуйте снова или обратитесь в поддержку.');
-                } else {
-                    alert('Ошибка входа: ' + error.message);
-                }
-            }
-        });
-
-        // Повторная отправка письма
-        window.resendVerificationEmail = async function() {
-            if (!currentUser) {
-                console.log('No current user for resend verification');
-                return;
-            }
-            try {
-                console.log('Resending verification email for:', currentUser.email);
-                await sendEmailVerification(currentUser);
-                alert('Ссылка для подтверждения отправлена повторно. Проверьте почту.');
-            } catch (error) {
-                console.error('Resend verification error:', error, 'Code:', error.code, 'Message:', error.message);
-                alert('Ошибка отправки письма: ' + error.message);
-            }
-        };
-
-        // Показать профиль
-        async function showProfile(user) {
-            try {
-                console.log('Loading profile for uid, path: users/', user.uid);
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                console.log('User doc exists:', userDoc.exists(), 'Data:', userDoc.data());
-                if (userDoc.exists()) {
-                    const data = userDoc.data();
-                    document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
-                    document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
-                    document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
-                    document.getElementById('profileVerified').textContent = `Email подтверждён: ${user.emailVerified ? 'Да' : 'Нет'}`;
-                    document.getElementById('verifyEmailBtn').classList.toggle('hidden', user.emailVerified);
-                } else {
-                    alert('Профиль не найден — попробуйте зарегистрироваться заново');
-                    await signOut(auth);
-                    return;
-                }
-                document.getElementById('userProfile').classList.remove('hidden');
-                document.getElementById('loginForm').classList.add('hidden');
+            // Функция переключения форм
+            window.toggleForm = function(formType) {
+                console.log('Toggling form to:', formType);
                 document.getElementById('registerForm').classList.add('hidden');
-            } catch (error) {
-                console.error('Profile load error:', error, 'Code:', error.code, 'Message:', error.message);
-                alert('Ошибка чтения профиля: ' + error.message);
-            }
-        }
-
-        // Выход
-        window.logout = async function() {
-            try {
-                console.log('Logging out user:', currentUser?.uid);
-                await signOut(auth);
-                currentUser = null;
+                document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('userProfile').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('hidden');
-            } catch (error) {
-                console.error('Logout error:', error, 'Code:', error.code, 'Message:', error.message);
-                alert('Ошибка выхода: ' + error.message);
-            }
-        };
+                
+                if (formType === 'register') {
+                    document.getElementById('registerForm').classList.remove('hidden');
+                } else if (formType === 'login') {
+                    document.getElementById('loginForm').classList.remove('hidden');
+                }
+            };
 
-        // Мониторинг авторизации
-        onAuthStateChanged(auth, async (user) => {
-            console.log('Auth state changed, user:', user?.uid, 'emailVerified:', user?.emailVerified);
-            if (user) {
-                currentUser = user;
-                if (!user.emailVerified && !document.getElementById('registerForm').classList.contains('hidden')) {
-                    console.log('Skipping email verification check during registration');
-                    return;
+            // Валидация ника
+            function validateUsername(username) {
+                const regex = /^[a-zA-Z0-9_]+$/;
+                const errorEl = document.getElementById('usernameError');
+                if (!regex.test(username)) {
+                    errorEl.textContent = 'Ник только на латинице, цифрах и подчеркивании';
+                    errorEl.classList.remove('hidden');
+                    return false;
+                } else if (username.length < 3 || username.length > 20) {
+                    errorEl.textContent = 'Ник от 3 до 20 символов';
+                    errorEl.classList.remove('hidden');
+                    return false;
                 }
-                if (!user.emailVerified) {
-                    alert('Подтвердите почту для входа в аккаунт');
-                    await signOut(auth);
-                    return;
-                }
-                await showProfile(user);
-            } else {
-                currentUser = null;
-                window.toggleForm('login');
+                errorEl.classList.add('hidden');
+                return true;
             }
-        });
-    } catch (error) {
-        console.error('Firebase initialization error:', error, 'Code:', error.code, 'Message:', error.message);
-        alert('Ошибка инициализации Firebase: ' + error.message);
-    }
-</script>
+
+            // Валидация email
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const errorEl = document.getElementById('emailError');
+                if (!regex.test(email)) {
+                    errorEl.textContent = 'Введите корректный email';
+                    errorEl.classList.remove('hidden');
+                    return false;
+                }
+                errorEl.classList.add('hidden');
+                return true;
+            }
+
+            // Валидация пароля
+            function validatePassword(password) {
+                const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                const errorEl = document.getElementById('passwordError');
+                if (!regex.test(password)) {
+                    errorEl.textContent = 'Пароль: минимум 8 символов, буквы и цифры';
+                    errorEl.classList.remove('hidden');
+                    return false;
+                }
+                errorEl.classList.add('hidden');
+                return true;
+            }
+
+            // Показ сообщения в форме
+            function showFormMessage(formId, message, isSuccess) {
+                const messageEl = document.getElementById(formId === 'registerForm' ? 'registerMessage' : 'loginMessage');
+                messageEl.textContent = message;
+                messageEl.classList.remove('hidden', 'error', 'success');
+                messageEl.classList.add(isSuccess ? 'success' : 'error');
+            }
+
+            // Регистрация
+            document.getElementById('registerForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const username = document.getElementById('regUsername').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const password = document.getElementById('regPassword').value;
+
+                // Валидация
+                if (!validateUsername(username) || !validateEmail(email) || !validatePassword(password)) {
+                    console.log('Validation failed');
+                    return;
+                }
+
+                try {
+                    console.log('Checking username availability:', username);
+                    const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                    if (usernameDoc.exists()) {
+                        console.log('Username already taken:', username);
+                        showFormMessage('registerForm', 'Этот ник уже занят', false);
+                        return;
+                    }
+
+                    console.log('Starting registration for:', { username, email });
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    console.log('User created, uid:', user.uid, 'emailVerified:', user.emailVerified);
+
+                    console.log('Sending verification email to:', email);
+                    await sendEmailVerification(user);
+                    console.log('Verification email sent successfully');
+
+                    try {
+                        console.log('Attempting to save user data to users collection, path: users/', user.uid);
+                        await setDoc(doc(db, 'users', user.uid), { username, email });
+                        console.log('User data saved successfully to users/', user.uid);
+                    } catch (error) {
+                        console.error('Error saving user data:', error);
+                        throw new Error('Failed to save user data: ' + error.message);
+                    }
+
+                    try {
+                        console.log('Attempting to save username to usernames collection, path: usernames/', username);
+                        await setDoc(doc(db, 'usernames', username), { uid: user.uid, email });
+                        console.log('Username data saved successfully to usernames/', username);
+                    } catch (error) {
+                        console.error('Error saving username data:', error);
+                        throw new Error('Failed to save username data: ' + error.message);
+                    }
+
+                    showFormMessage('registerForm', 'Регистрация успешна! Проверьте почту для подтверждения.', true);
+                    await signOut(auth);
+                    window.toggleForm('login');
+                } catch (error) {
+                    console.error('Registration error:', error, 'Code:', error.code, 'Message:', error.message);
+                    if (error.code === 'auth/email-already-in-use') {
+                        showFormMessage('registerForm', 'Email уже зарегистрирован', false);
+                    } else if (error.code === 'auth/weak-password') {
+                        showFormMessage('registerForm', 'Пароль слишком слабый', false);
+                    } else if (error.code === 'permission-denied') {
+                        showFormMessage('registerForm', 'Ошибка прав доступа. Попробуйте снова или обратитесь в поддержку.', false);
+                    } else {
+                        showFormMessage('registerForm', 'Ошибка регистрации: ' + error.message, false);
+                    }
+                }
+            });
+
+            // Вход по username
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const username = document.getElementById('loginUsername').value.trim();
+                const password = document.getElementById('loginPassword').value;
+
+                try {
+                    console.log('Looking up username, path: usernames/', username);
+                    const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                    console.log('Username doc exists:', usernameDoc.exists(), 'Data:', usernameDoc.data());
+                    if (!usernameDoc.exists()) {
+                        showFormMessage('loginForm', 'Ник не найден', false);
+                        return;
+                    }
+                    const { uid, email } = usernameDoc.data();
+
+                    console.log('Attempting login with email:', email);
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    console.log('Login successful, uid:', userCredential.user.uid);
+
+                    console.log('Verifying user data after login, path: users/', userCredential.user.uid);
+                    const authenticatedUserDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+                    console.log('Authenticated user doc exists:', authenticatedUserDoc.exists(), 'Data:', authenticatedUserDoc.data());
+                    if (!authenticatedUserDoc.exists()) {
+                        showFormMessage('loginForm', 'Ошибка: Профиль пользователя не найден после входа', false);
+                        await signOut(auth);
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Login error:', error, 'Code:', error.code, 'Message:', error.message);
+                    if (error.code === 'auth/wrong-password') {
+                        showFormMessage('loginForm', 'Неверный пароль', false);
+                    } else if (error.code === 'auth/user-not-found') {
+                        showFormMessage('loginForm', 'Пользователь не найден', false);
+                    } else if (error.code === 'permission-denied') {
+                        showFormMessage('loginForm', 'Ошибка прав доступа при входе. Попробуйте снова или обратитесь в поддержку.', false);
+                    } else {
+                        showFormMessage('loginForm', 'Ошибка входа: ' + error.message, false);
+                    }
+                }
+            });
+
+            // Сброс пароля
+            window.resetPassword = async function() {
+                const username = document.getElementById('loginUsername').value.trim();
+                if (!username) {
+                    showFormMessage('loginForm', 'Введите ник для сброса пароля', false);
+                    return;
+                }
+
+                try {
+                    console.log('Looking up username for password reset, path: usernames/', username);
+                    const usernameDoc = await getDoc(doc(db, 'usernames', username));
+                    console.log('Username doc exists:', usernameDoc.exists(), 'Data:', usernameDoc.data());
+                    if (!usernameDoc.exists()) {
+                        showFormMessage('loginForm', 'Ник не найден', false);
+                        return;
+                    }
+                    const { email } = usernameDoc.data();
+
+                    console.log('Sending password reset email to:', email);
+                    await sendPasswordResetEmail(auth, email);
+                    console.log('Password reset email sent successfully');
+                    showFormMessage('loginForm', 'Письмо для сброса пароля отправлено. Проверьте почту.', true);
+                } catch (error) {
+                    console.error('Password reset error:', error, 'Code:', error.code, 'Message:', error.message);
+                    if (error.code === 'auth/user-not-found') {
+                        showFormMessage('loginForm', 'Пользователь не найден', false);
+                    } else {
+                        showFormMessage('loginForm', 'Ошибка при отправке письма: ' + error.message, false);
+                    }
+                }
+            };
+
+            // Повторная отправка письма
+            window.resendVerificationEmail = async function() {
+                if (!currentUser) {
+                    console.log('No current user for resend verification');
+                    return;
+                }
+                try {
+                    console.log('Resending verification email for:', currentUser.email);
+                    await sendEmailVerification(currentUser);
+                    showFormMessage('userProfile', 'Ссылка для подтверждения отправлена повторно. Проверьте почту.', true);
+                } catch (error) {
+                    console.error('Resend verification error:', error, 'Code:', error.code, 'Message:', error.message);
+                    showFormMessage('userProfile', 'Ошибка отправки письма: ' + error.message, false);
+                }
+            };
+
+            // Показать профиль
+            async function showProfile(user) {
+                try {
+                    console.log('Loading profile for uid, path: users/', user.uid);
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    console.log('User doc exists:', userDoc.exists(), 'Data:', userDoc.data());
+                    if (userDoc.exists()) {
+                        const data = userDoc.data();
+                        document.getElementById('profileName').textContent = `Привет, ${data.username}!`;
+                        document.getElementById('profileEmail').textContent = `Email: ${data.email}`;
+                        document.getElementById('profileUsername').textContent = `Ник: ${data.username}`;
+                        document.getElementById('profileVerified').textContent = `Email подтверждён: ${user.emailVerified ? 'Да' : 'Нет'}`;
+                        document.getElementById('verifyEmailBtn').classList.toggle('hidden', user.emailVerified);
+                    } else {
+                        showFormMessage('userProfile', 'Профиль не найден — попробуйте зарегистрироваться заново', false);
+                        await signOut(auth);
+                        return;
+                    }
+                    document.getElementById('userProfile').classList.remove('hidden');
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('registerForm').classList.add('hidden');
+                } catch (error) {
+                    console.error('Profile load error:', error, 'Code:', error.code, 'Message:', error.message);
+                    showFormMessage('userProfile', 'Ошибка чтения профиля: ' + error.message, false);
+                }
+            }
+
+            // Выход
+            window.logout = async function() {
+                try {
+                    console.log('Logging out user:', currentUser?.uid);
+                    await signOut(auth);
+                    currentUser = null;
+                    document.getElementById('userProfile').classList.add('hidden');
+                    document.getElementById('loginForm').classList.remove('hidden');
+                } catch (error) {
+                    console.error('Logout error:', error, 'Code:', error.code, 'Message:', error.message);
+                    showFormMessage('loginForm', 'Ошибка выхода: ' + error.message, false);
+                }
+            };
+
+            // Мониторинг авторизации
+            onAuthStateChanged(auth, async (user) => {
+                console.log('Auth state changed, user:', user?.uid, 'emailVerified:', user?.emailVerified);
+                if (user) {
+                    currentUser = user;
+                    if (!user.emailVerified && !document.getElementById('registerForm').classList.contains('hidden')) {
+                        console.log('Skipping email verification check during registration');
+                        return;
+                    }
+                    if (!user.emailVerified) {
+                        showFormMessage('loginForm', 'Подтвердите почту для входа в аккаунт', false);
+                        await signOut(auth);
+                        return;
+                    }
+                    await showProfile(user);
+                } else {
+                    currentUser = null;
+                    window.toggleForm('login');
+                }
+            });
+        } catch (error) {
+            console.error('Firebase initialization error:', error, 'Code:', error.code, 'Message:', error.message);
+            showFormMessage('loginForm', 'Ошибка инициализации Firebase: ' + error.message, false);
+        }
+    </script>
 </body>
 </html>
