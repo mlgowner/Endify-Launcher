@@ -279,7 +279,7 @@
     <!-- Firebase SDK -->
     <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, setPersistence, browserLocalPersistence, applyActionCode } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
     // Firebase Config
@@ -372,6 +372,25 @@
             console.log('Showing message for', formId, ':', message, 'Success:', isSuccess);
         }
 
+        // Обработка oobCode для верификации email
+        const urlParams = new URLSearchParams(window.location.search);
+        const oobCode = urlParams.get('oobCode');
+        const mode = urlParams.get('mode');
+        console.log('URL params - mode:', mode, 'oobCode:', oobCode);
+        if (oobCode && mode === 'verifyEmail') {
+            try {
+                console.log('Applying email verification code:', oobCode);
+                await applyActionCode(auth, oobCode);
+                console.log('Email verification successful');
+                showFormMessage('loginForm', '✅ Email успешно подтверждён! Войдите в аккаунт.', true);
+                window.toggleForm('login');
+            } catch (error) {
+                console.error('Email verification error:', error, 'Code:', error.code, 'Message:', error.message);
+                showFormMessage('loginForm', 'Ошибка верификации email: ' + error.message, false);
+                window.toggleForm('login');
+            }
+        }
+
         // Регистрация
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -400,7 +419,9 @@
                 console.log('User created, uid:', user.uid, 'emailVerified:', user.emailVerified);
 
                 console.log('Sending verification email to:', email);
-                await sendEmailVerification(user);
+                await sendEmailVerification(user, {
+                    url: 'https://mlgowner.github.io/Endify-Launcher/account.html'
+                });
                 console.log('Verification email sent successfully');
 
                 try {
@@ -523,7 +544,9 @@
             }
             try {
                 console.log('Resending verification email for:', currentUser.email);
-                await sendEmailVerification(currentUser);
+                await sendEmailVerification(currentUser, {
+                    url: 'https://mlgowner.github.io/Endify-Launcher/account.html'
+                });
                 showFormMessage('userProfile', 'Ссылка для подтверждения отправлена повторно. Проверьте почту.', true);
             } catch (error) {
                 console.error('Resend verification error:', error, 'Code:', error.code, 'Message:', error.message);
