@@ -332,12 +332,16 @@
                     const user = userCredential.user;
                     console.log('User created, uid:', user.uid, 'emailVerified:', user.emailVerified);
 
+                    console.log('Checking auth token for user:', user.uid);
+                    const token = await user.getIdToken();
+                    console.log('Auth token received:', !!token);
+
                     console.log('Sending verification email to:', email);
                     await sendEmailVerification(user);
                     console.log('Verification email sent successfully');
 
                     console.log('Attempting to save user data to users collection, path: users/', user.uid);
-                    await setDoc(doc(db, 'users', user.uid), { username, email });
+                    await setDoc(doc(db, 'users', user.uid), { username: username, email: email });
                     console.log('User data saved successfully to users/', user.uid);
 
                     console.log('Attempting to save username to usernames collection, path: usernames/', username);
