@@ -336,7 +336,6 @@
                 await sendEmailVerification(user);
                 console.log('Verification email sent successfully');
 
-                // Сохраняем данные пользователя
                 try {
                     console.log('Attempting to save user data to users collection, path: users/', user.uid);
                     await setDoc(doc(db, 'users', user.uid), { username, email });
@@ -356,7 +355,7 @@
                 }
 
                 alert('Регистрация успешна! Проверьте почту для подтверждения.');
-                await signOut(auth); // Выходим после успешной регистрации
+                await signOut(auth);
                 window.toggleForm('login');
             } catch (error) {
                 console.error('Registration error:', error, 'Code:', error.code, 'Message:', error.message);
@@ -388,7 +387,7 @@
                 }
                 const { uid } = usernameDoc.data();
 
-                console.log('Looking up user, path: users/', uid);
+                console.log('Looking up user email, path: users/', uid);
                 const userDoc = await getDoc(doc(db, 'users', uid));
                 console.log('User doc exists:', userDoc.exists(), 'Data:', userDoc.data());
                 if (!userDoc.exists()) {
@@ -398,11 +397,28 @@
                 const { email } = userDoc.data();
 
                 console.log('Attempting login with email:', email);
-                await signInWithEmailAndPassword(auth, email, password);
-                console.log('Login successful');
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('Login successful, uid:', userCredential.user.uid);
+
+                // Проверяем данные пользователя после входа
+                const authenticatedUserDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+                console.log('Authenticated user doc exists:', authenticatedUserDoc.exists(), 'Data:', authenticatedUserDoc.data());
+                if (!authenticatedUserDoc.exists()) {
+                    alert('Ошибка: Профиль пользователя не найден после входа');
+                    await signOut(auth);
+                    return;
+                }
             } catch (error) {
                 console.error('Login error:', error, 'Code:', error.code, 'Message:', error.message);
-                alert('Ошибка входа: ' + error.message);
+                if (error.code === 'auth/wrong-password') {
+                    alert('Неверный пароль');
+                } else if (error.code === 'auth/user-not-found') {
+                    alert('Пользователь не найден');
+                } else if (error.code === 'permission-denied') {
+                    alert('Ошибка прав доступа при входе. Попробуйте снова или обратитесь в поддержку.');
+                } else {
+                    alert('Ошибка входа: ' + error.message);
+                }
             }
         });
 
@@ -468,7 +484,6 @@
             console.log('Auth state changed, user:', user?.uid, 'emailVerified:', user?.emailVerified);
             if (user) {
                 currentUser = user;
-                // Проверяем верификацию только для входа, не для регистрации
                 if (!user.emailVerified && !document.getElementById('registerForm').classList.contains('hidden')) {
                     console.log('Skipping email verification check during registration');
                     return;
